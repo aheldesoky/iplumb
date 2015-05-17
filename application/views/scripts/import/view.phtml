@@ -1,0 +1,34 @@
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title"><?php echo $this->translate('Import Categories') ?></h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th><?php echo $this->translate('Category Name') ?></th>
+                    <th><?php echo $this->translate('Quantity') ?></th>
+                    <th><?php echo $this->translate('Buy Price') ?></th>
+                    <th><?php echo $this->translate('Sell Price') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if ($this->categories) {   //echo '<pre>';  print_r($this->categories); ?>
+                    <?php foreach ($this->categories as $category) {?>
+                    <tr>
+                        <td><?php echo $category['categoryName'] . ' ' . $category['sizeValue'] ?></td>
+                        <td><?php echo $category['categoryQuantity'] ?></td>
+                        <td><?php echo $category['categoryBuyPrice'] ?></td>
+                        <td><?php echo $category['categorySellPrice'] ?></td>
+                    </tr>
+                    <?php }?>
+                <?php } else {?>
+                    <tr><td colspan="4" class="text-center"><?php echo $this->translate('No imports yet') ?></td></tr>
+                <?php }?>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer text-center">
+        <a href="<?php echo $this->baseUrl();?>/import/add" class="btn btn-success"><?php echo $this->translate('Add New Import') ?></a>
+    </div>
+</div>

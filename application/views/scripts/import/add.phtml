@@ -1,0 +1,49 @@
+<?php 
+    $this->headLink()->appendStylesheet($this->baseUrl('/css/jquery-ui/jquery-ui.css'));
+    
+    $this->headScript()->appendFile($this->baseUrl('/js/jquery-ui/jquery-ui.js'))
+                       ->appendFile($this->baseUrl('/js/jquery-ui/datepicker-ar.js'))
+                       ->appendFile($this->baseUrl('/js/jquery.autocomplete.js'))
+                       ->appendFile($this->baseUrl('/js/json2.min.js'))
+                       ->appendFile($this->baseUrl('/js/import.js'));
+?>
+
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="panel-title"><?php echo $this->translate('Add New Import') ?></h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered text-center table-category">
+            <thead>
+                <tr>
+                    <th class="text-center"><?php echo $this->translate('Category Name') ?></th>
+                    <th class="text-center"><?php echo $this->translate('Quantity') ?></th>
+                    <th class="text-center"><?php echo $this->translate('Buy Price') ?></th>
+                    <th class="text-center"><?php echo $this->translate('Sell Price') ?></th>
+                    <th class="text-center"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="category-row">
+                    <td><input type="text" name="category" id="category"></td>
+                    <td><input type="text" name="quantity" id="quantity"></td>
+                    <td><input type="text" name="sellPrice" id="sellPrice"></td>
+                    <td><input type="text" name="buyPrice" id="buyPrice"></td>
+                    <td><a href="#" style="color:red" class="remove-category"><i class="fa fa-remove fa-fw"></i></a></td>
+                </tr>
+                <tr class="last-row">
+                    <td colspan="4">
+                        <button id="addcategory" class="btn btn-info">
+                            <?php echo $this->translate('Add Category to Import') ?>
+                        </button>
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <?php echo $this->form ?>
+    </div>
+    <div class="panel-footer text-center">
+        <a href="<?php echo $this->baseUrl('/import');?>" class="btn btn-default"><?php echo $this->translate('Back to Import List') ?></a>
+    </div>
+</div>

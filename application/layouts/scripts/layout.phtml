@@ -1,0 +1,189 @@
+<?php echo $this->doctype() ?>
+<html>
+    <head>
+        <?php echo $this->headMeta(); ?>
+        <?php echo $this->headTitle() ?>
+        <?php echo $this->headLink() ?>
+        <?php echo $this->headScript() ?>
+    </head>
+    <body>
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand brand-style" href="<?php echo $this->baseUrl();?>"><?php echo $this->translate('iPlumb')?></a>
+            </div>
+            <!-- /.navbar-header -->
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2 navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+                            <?php 
+                            $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+                            $action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+                            ?>
+                            <li class="<?php echo ($controller=='import')?'active':''?>">
+                                <a href="#">
+                                    <i class="fa fa-cubes fa-fw"></i> <?php echo $this->translate('Imports') ?>
+                                    <span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-second-level <?php echo ($controller=='import')?'collapse in':''?>">
+                                    <li>
+                                        <a href="<?php echo $this->baseUrl().'/import' ?>">
+                                            <i class="fa fa-list fa-fw"></i> <?php echo $this->translate('Display Imports') ?>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo $this->baseUrl().'/import/add' ?>">
+                                            <i class="fa fa-plus-square-o fa-fw"></i> <?php echo $this->translate('Add New Import') ?>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            
+                            <li class="<?php echo ($controller=='category')?'active':''?>">
+                                <a href="#">
+                                    <i class="fa fa-sitemap fa-fw"></i> <?php echo $this->translate('Categories') ?>
+                                    <span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-second-level <?php echo ($controller=='category')?'collapse in':''?>">
+                                    <li>
+                                        <a href="<?php echo $this->baseUrl().'/category' ?>">
+                                            <i class="fa fa-list fa-fw"></i> <?php echo $this->translate('Display Categories') ?>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo $this->baseUrl().'/category/add' ?>">
+                                            <i class="fa fa-plus-square-o fa-fw"></i> <?php echo $this->translate('Add New Category') ?>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            
+                            <li>
+                                <a href="<?php echo $this->baseUrl().'/supplier' ?>">
+                                    <i class="fa fa-truck fa-fw"></i> <?php echo $this->translate('Suppliers') ?>
+                                    <span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-second-level <?php echo ($controller=='supplier')?'collapse in':''?>">
+                                    <li>
+                                        <a href="<?php echo $this->baseUrl().'/supplier' ?>">
+                                            <i class="fa fa-list fa-fw"></i> <?php echo $this->translate('Display Suppliers') ?>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo $this->baseUrl().'/supplier/add' ?>">
+                                            <i class="fa fa-plus-square-o fa-fw"></i> <?php echo $this->translate('Add New Supplier') ?>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            <!--
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-line-chart fa-fw"></i> <?php echo $this->translate('Reports') ?>
+                                    <span class="fa arrow"></span>
+                                </a>
+                            </li>
+                            -->
+                            <li class="<?php echo ($controller=='role'||$controller=='user')?'active':''?>">
+                                <a href="#">
+                                    <i class="fa fa-gears fa-fw"></i> <?php echo $this->translate('Settings') ?>
+                                    <span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="<?php echo $this->baseUrl().'/user' ?>">
+                                            <i class="fa fa-users fa-fw"></i> <?php echo $this->translate('Users') ?>
+                                            <span class="fa arrow"></span>
+                                        </a>
+                                        <ul class="nav nav-third-level <?php echo ($controller=='user')?'collapse in':''?>">
+                                            <li>
+                                                <a href="<?php echo $this->baseUrl().'/user' ?>">
+                                                    <i class="fa fa-list fa-fw"></i> <?php echo $this->translate('Display Users') ?>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="<?php echo $this->baseUrl().'/user/add' ?>">
+                                                    <i class="fa fa-plus-square-o fa-fw"></i> <?php echo $this->translate('Add New User') ?>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <!-- /.nav-second-level -->
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-mars-double fa-fw"></i> <?php echo $this->translate('Roles') ?>
+                                            <span class="fa arrow"></span>
+                                        </a>
+                                        <ul class="nav nav-third-level <?php echo ($controller=='role')?'collapse in':''?>">
+                                            <li>
+                                                <a href="<?php echo $this->baseUrl().'/role' ?>">
+                                                    <i class="fa fa-list fa-fw"></i> <?php echo $this->translate('Display Roles') ?>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="<?php echo $this->baseUrl().'/role/add' ?>">
+                                                    <i class="fa fa-plus-square-o fa-fw"></i> <?php echo $this->translate('Add New Role') ?>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <!-- /.nav-second-level -->
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo $this->baseUrl().'/size' ?>">
+                                            <i class="fa fa-arrows-alt fa-fw"></i> <?php echo $this->translate('Sizes') ?>
+                                            <span class="fa arrow"></span>
+                                        </a>
+                                        <ul class="nav nav-third-level <?php echo ($controller=='size')?'collapse in':''?>">
+                                            <li>
+                                                <a href="<?php echo $this->baseUrl().'/size' ?>">
+                                                    <i class="fa fa-list fa-fw"></i> <?php echo $this->translate('Display Sizes') ?>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="<?php echo $this->baseUrl().'/size/add' ?>">
+                                                    <i class="fa fa-plus-square-o fa-fw"></i> <?php echo $this->translate('Add New Size') ?>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <!-- /.nav-second-level -->
+                                    </li>
+                                </ul>
+                            </li>
+                            
+                            <li>
+                                <a href="<?php echo $this->baseUrl().'/auth/logout'?>">
+                                    <i class="fa fa-sign-out fa-fw"></i> <?php echo $this->translate('Logout') ?>
+                                </a>
+                            </li>
+                            
+                            <!--
+                            <li>
+                                <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
+                            </li>
+                            -->
+                        </ul>
+                    </div>
+                    <!-- /.sidebar-collapse -->
+                </div>
+                <!-- /.navbar-static-side -->
+                
+                <div id="wrapper" class="col-sm-9">
+                    <?php echo $this->layout()->content; ?>
+                </div>
+                <input type="hidden" id="baseUrl" value="<?php echo $this->baseUrl() ?>" />
+            </div>
+        </div>
+    </body>
+</html>

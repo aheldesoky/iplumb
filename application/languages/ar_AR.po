@@ -1,0 +1,331 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Ahmed Eldesouky <aheldesoky@gmail.com>\n"
+"Language-Team:  <aheldesoky@gmail.com>\n"
+"Language: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: /Users/aheldesoky/NetBeansProjects/\n"
+
+msgid "iPlumb"
+msgstr "مؤسسة دريم"
+
+# ## AUTH
+msgid "Please Sign In"
+msgstr "من فضلك سجل الدخول"
+
+msgid "Username"
+msgstr "أسم المستخدم"
+
+msgid "Password"
+msgstr "كلمة المرور"
+
+msgid "Remember Me"
+msgstr "تذكرنى"
+
+msgid "Login"
+msgstr "دخول"
+
+msgid "Search for Client"
+msgstr "ابحث عن عميل"
+
+msgid "Search"
+msgstr "بحث"
+
+msgid "Search Result"
+msgstr "نتائج البحث"
+
+msgid "Search Again"
+msgstr "إعادة البحث"
+
+# ## MAIN MENU
+msgid "Settings"
+msgstr "إعدادات"
+
+msgid "Roles"
+msgstr "الصلاحيات"
+
+msgid "Users"
+msgstr "المستخدمين"
+
+msgid "Categories"
+msgstr "الأصناف"
+
+msgid "Display Categories"
+msgstr "عرض الأصناف"
+
+msgid "Suppliers"
+msgstr "الموردين"
+
+msgid "Display Suppliers"
+msgstr "عرض الموردين"
+
+msgid "Display Roles"
+msgstr "عرض أنواع المستخدمين"
+
+msgid "Display Users"
+msgstr "عرض المستخدمين"
+
+msgid "Stock"
+msgstr "البضاعة"
+
+msgid "Reports"
+msgstr "تقارير"
+
+msgid "Main Page"
+msgstr "الصفحة الرئيسية"
+
+msgid "Logout"
+msgstr "تسجيل خروج"
+
+# ## ACTIONS
+msgid "Actions"
+msgstr "إجراءات"
+
+msgid "View"
+msgstr "عرض"
+
+msgid "Edit"
+msgstr "تعديل"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Back"
+msgstr "الرجوع"
+
+msgid "Page"
+msgstr "صفحة"
+
+# ## ROLE
+msgid "Roles List"
+msgstr "قائمة أنواع المستخدمين"
+
+msgid "Role"
+msgstr "نوع المستخدم"
+
+msgid "Add New Role"
+msgstr "إضافة نوع مستخدم جديد"
+
+msgid "No roles yet"
+msgstr "لا توجد أنواع مستخدمين حاليا"
+
+msgid "Role Name"
+msgstr "نوع المستخدم"
+
+msgid "Add Role"
+msgstr "إضافة نوع المستخدم"
+
+msgid "Edit Role"
+msgstr "تعديل نوع المستخدم"
+
+msgid "Back to Role List"
+msgstr "الرجوع لقائمة أنواع المستخدمين"
+
+# ## USER
+msgid "Users List"
+msgstr "قائمة المستخدمين"
+
+msgid "User"
+msgstr "مستخدم"
+
+msgid "Add New User"
+msgstr "إضافة مستخدم جديد"
+
+msgid "No users yet"
+msgstr "لا يوجد مستخدمين حاليا"
+
+msgid "User Name"
+msgstr "إسم المستخدم"
+
+msgid "Add User"
+msgstr "إضافة المستخدم"
+
+msgid "Edit User"
+msgstr "تعديل المستخدم"
+
+msgid "Back to User List"
+msgstr "الرجوع لقائمة المستخدمين"
+
+msgid "Full Name"
+msgstr "الإسم"
+
+# ## CATEGORY
+msgid "Categorys List"
+msgstr "قائمة الأصناف"
+
+msgid "Category"
+msgstr "الصنف"
+
+msgid "Add New Category"
+msgstr "إضافة صنف جديد"
+
+msgid "No categorys yet"
+msgstr "لا يوجد أصناف حاليا"
+
+msgid "Category Name"
+msgstr "أسم الصنف"
+
+msgid "Add Category"
+msgstr "إضافة الصنف"
+
+msgid "Edit Category"
+msgstr "تعديل الصنف"
+
+msgid "Back to Category List"
+msgstr "الرجوع لقائمة الأصناف"
+
+# ## SIZE
+msgid "Display Sizes"
+msgstr "عرض المقاسات"
+
+msgid "Sizes List"
+msgstr "قائمة المقاسات"
+
+msgid "Size"
+msgstr "المقاس"
+
+msgid "Sizes"
+msgstr "المقاسات"
+
+msgid "No Size"
+msgstr "بلا مقاس"
+
+msgid "Add New Size"
+msgstr "إضافة مقاس جديد"
+
+msgid "No sizes yet"
+msgstr "لا يوجد مقاسات حاليا"
+
+msgid "Size Value"
+msgstr "المقاس"
+
+msgid "Add Size"
+msgstr "إضافة المقاس"
+
+msgid "Edit Size"
+msgstr "تعديل المقاس"
+
+msgid "Back to Size List"
+msgstr "الرجوع لقائمة المقاسات"
+
+# ## SUPPLIER
+msgid "Suppliers List"
+msgstr "قائمة الموردين"
+
+msgid "Supplier"
+msgstr "المورد"
+
+msgid "Add New Supplier"
+msgstr "إضافة مورد جديد"
+
+msgid "No suppliers yet"
+msgstr "لا يوجد موردون حاليا"
+
+msgid "Supplier Name"
+msgstr "أسم المورد"
+
+msgid "Name"
+msgstr "الإسم"
+
+msgid "Phone Number"
+msgstr "رقم الهاتف"
+
+msgid "Phone"
+msgstr "الهاتف"
+
+msgid "Address"
+msgstr "العنوان"
+
+msgid "Initial Balance"
+msgstr "الرصيد الإبتدائي"
+
+msgid "Add Supplier"
+msgstr "إضافة المورد"
+
+msgid "Edit Supplier"
+msgstr "تعديل المورد"
+
+msgid "Back to Supplier List"
+msgstr "الرجوع لقائمة الموردين"
+
+# ## IMPORT
+msgid "Imports List"
+msgstr "قائمة الواردات"
+
+msgid "Import"
+msgstr "الوارد"
+
+msgid "Imports"
+msgstr "الواردات"
+
+msgid "Display Imports"
+msgstr "عرض الواردات"
+
+msgid "Select Supplier"
+msgstr "اختر مورد"
+
+msgid "Add New Import"
+msgstr "إضافة وارد جديد"
+
+msgid "No imports yet"
+msgstr "لا يوجد واردات حاليا"
+
+msgid "Add Import"
+msgstr "إضافة الوارد"
+
+msgid "Quantity"
+msgstr "الكمية"
+
+msgid "Buy Price"
+msgstr "ثمن شراء الوحدة"
+
+msgid "Sell Price"
+msgstr "ثمن بيع الوحدة"
+
+msgid "Order ID"
+msgstr "رقم فاتورة الشراء"
+
+msgid "Date"
+msgstr "التاريخ"
+
+msgid "Paid"
+msgstr "المدفوع"
+
+msgid "Remaining"
+msgstr "المتبقي"
+
+msgid "Add Category to Import"
+msgstr "إضافة صنف للوارد"
+
+msgid "Edit Import"
+msgstr "تعديل الوارد"
+
+msgid "Back to Import List"
+msgstr "الرجوع لقائمة الواردات"
+
+# ## VALIDATION MESSAGES
+msgid "This role already exists"
+msgstr "هذا النوع مضاف مسبقا"
+
+msgid "This user already exists"
+msgstr "هذا المستخدم مضاف مسبقا"
+
+msgid "This Category already exists"
+msgstr "هذا الصنف مضاف مسبقا"
+
+msgid "Digits only allowed"
+msgstr "مسموح بأرقام فقط"
+
+msgid "Value is required"
+msgstr "يجب إدخال قيمة"
+
+msgid "This page still under development"
+msgstr "هذه الصفحة لا تزال تحت الإنشاء"

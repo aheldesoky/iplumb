@@ -1,0 +1,28 @@
+<?php 
+    $this->headLink()->appendStylesheet($this->baseUrl('/css/jquery-ui/jquery-ui.css'));
+    
+    $this->headScript()->appendFile($this->baseUrl('/js/jquery-ui/jquery-ui.js'))
+                       ->appendFile($this->baseUrl('/js/jquery-ui/datepicker-ar.js'));
+?>
+
+<div class="panel panel-warning">
+    <div class="panel-heading">
+        <h3 class="panel-title"><?php echo $this->translate('Edit Import') ?></h3>
+    </div>
+    <div class="panel-body">
+        <?php echo $this->form ?>
+    </div>
+    <div class="panel-footer text-center">
+        <a href="<?php echo $this->baseUrl();?>/import" class="btn btn-default"><?php echo $this->translate('Back to Import List') ?></a>
+    </div>
+</div>
+<script>
+    $(function() {
+        $.datepicker.setDefaults( $.datepicker.regional[ "ar" ] );
+        
+        $( "#importDate" ).datepicker({
+            dateFormat: "yy-mm-dd"
+        });
+        
+    });
+</script>

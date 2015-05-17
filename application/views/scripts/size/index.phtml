@@ -1,0 +1,35 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title"><?php echo $this->translate('Sizes List') ?></h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <!--<th>#</th>-->
+                    <th><?php echo $this->translate('Size Value') ?></th>
+                    <th><?php echo $this->translate('Actions') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if ($this->sizes) {?>
+                    <?php foreach ($this->sizes as $size) {?>
+                    <tr>
+                        <!--<td><?php echo $size['sizeId'] ?></td>-->
+                        <td><?php echo $size['sizeValue'] ?></td>
+                        <td>
+                            <a href="<?php echo $this->baseUrl()?>/size/edit/id/<?php echo $size['sizeId']?>" class="btn btn-warning"><?php echo $this->translate('Edit') ?></a>
+                            <a href="<?php echo $this->baseUrl()?>/size/delete/id/<?php echo $size['sizeId']?>" class="btn btn-danger"><?php echo $this->translate('Delete') ?></a>
+                        </td>
+                    </tr>
+                    <?php }?>
+                <?php } else {?>
+                    <tr><td colspan="3" class="text-center"><?php echo $this->translate('No sizes yet') ?></td></tr>
+                <?php }?>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer text-center">
+        <a href="<?php echo $this->baseUrl();?>/size/add" class="btn btn-success"><?php echo $this->translate('Add New Size') ?></a>
+    </div>
+</div>

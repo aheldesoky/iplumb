@@ -1,0 +1,35 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title"><?php echo $this->translate('Roles List') ?></h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th><?php echo $this->translate('Role') ?></th>
+                    <th><?php echo $this->translate('Actions') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if ($this->roles) {?>
+                    <?php foreach ($this->roles as $role) {?>
+                    <tr>
+                        <td><?php echo $role['roleId'] ?></td>
+                        <td><?php echo $role['roleName'] ?></td>
+                        <td>
+                            <a href="<?php echo $this->baseUrl()?>/role/edit/id/<?php echo $role['roleId']?>" class="btn btn-warning"><?php echo $this->translate('Edit') ?></a>
+                            <a href="<?php echo $this->baseUrl()?>/role/delete/id/<?php echo $role['roleId']?>" class="btn btn-danger"><?php echo $this->translate('Delete') ?></a>
+                        </td>
+                    </tr>
+                    <?php }?>
+                <?php } else {?>
+                    <tr><td colspan="3" class="text-center"><?php echo $this->translate('No roles yet') ?></td></tr>
+                <?php }?>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer text-center">
+        <a href="<?php echo $this->baseUrl();?>/role/add" class="btn btn-success"><?php echo $this->translate('Add New Role') ?></a>
+    </div>
+</div>

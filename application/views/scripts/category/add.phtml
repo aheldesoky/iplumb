@@ -1,0 +1,28 @@
+<?php $this->headScript()->appendFile($this->baseUrl('/js/jquery.autocomplete.js')); ?>
+
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="panel-title"><?php echo $this->translate('Add New Category') ?></h3>
+    </div>
+    <div class="panel-body">
+        <?php echo $this->form ?>
+    </div>
+    <div class="panel-footer text-center">
+        <a href="<?php echo $this->baseUrl();?>/category" class="btn btn-default"><?php echo $this->translate('Back to Category List') ?></a>
+    </div>
+</div>
+<script>
+    $('#categoryName').autocomplete({
+	serviceUrl:'<?php echo $this->baseUrl('/category/query') ?>',
+	minChars:1,
+	delimiter: /(,|;)\s*/, // regex or character
+	maxHeight:400,
+	//width:300,
+	zIndex: 9999,
+	deferRequestBy: 0, //miliseconds
+        triggerSelectOnValidInput: false,
+	//params: { param:'name' }, //aditional parameters
+	noCache: true, //default is false, set to true to disable caching
+	//onSelect: function(category){$('#categoryName').val(category.data);}
+    });
+</script>

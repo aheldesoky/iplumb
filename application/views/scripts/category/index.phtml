@@ -1,0 +1,35 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title"><?php echo $this->translate('Categorys List') ?></h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th><?php echo $this->translate('Category Name') ?></th>
+                    <th><?php echo $this->translate('Actions') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if ($this->categorys) {?>
+                    <?php foreach ($this->categorys as $category) {?>
+                    <tr>
+                        <td><?php echo $category['categoryId'] ?></td>
+                        <td><?php echo $category['categoryName'] . ' ' . $category['sizeValue'] ?></td>
+                        <td>
+                            <a href="<?php echo $this->baseUrl()?>/category/edit/id/<?php echo $category['categoryId']?>" class="btn btn-warning"><?php echo $this->translate('Edit') ?></a>
+                            <a href="<?php echo $this->baseUrl()?>/category/delete/id/<?php echo $category['categoryId']?>" class="btn btn-danger"><?php echo $this->translate('Delete') ?></a>
+                        </td>
+                    </tr>
+                    <?php }?>
+                <?php } else {?>
+                    <tr><td colspan="3" class="text-center"><?php echo $this->translate('No categorys yet') ?></td></tr>
+                <?php }?>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer text-center">
+        <a href="<?php echo $this->baseUrl();?>/category/add" class="btn btn-success"><?php echo $this->translate('Add New Category') ?></a>
+    </div>
+</div>
