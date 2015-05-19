@@ -32,9 +32,9 @@ class ImportController extends Zend_Controller_Action
                 $importModel = new Application_Model_Import();
                 $importCategoryModel = new Application_Model_ImportCategory();
                 
-                $categories = json_decode($data['importCategories'], true);
+                $categories = json_decode(stripcslashes($data['importCategories']), true);
                 unset($data['importCategories']);
-                
+                //print_r($categories);die;
                 $importId = $importModel->addImport($data);
                 
                 foreach ($categories as &$category){

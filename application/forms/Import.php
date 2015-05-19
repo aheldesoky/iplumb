@@ -31,8 +31,10 @@ class Application_Form_Import extends Zend_Form
         */
         $supplierModel = new Application_Model_Supplier();
         $suppliers = array('0' => $this->getTranslator()->translate('No Supplier'));
-        foreach ($supplierModel->getSuppliers() as $supplier)
-            $suppliers[$supplier['supplierId']] = $supplier['supplierName'];
+        $suppliersArr = $supplierModel->getSuppliers();
+        if(!empty($suppliersArr))
+            foreach ($suppliersArr as $supplier)
+                $suppliers[$supplier['supplierId']] = $supplier['supplierName'];
         
         $this->addElement('select','importSupplier', array(
             'label' => $this->getTranslator()->translate('Supplier'),
