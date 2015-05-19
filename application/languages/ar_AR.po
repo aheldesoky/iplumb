@@ -296,6 +296,9 @@ msgstr "سعر الشراء للوحدة"
 msgid "Sell Price"
 msgstr "سعر البيع للوحدة"
 
+msgid "Total Price"
+msgstr "قيمة الوارد"
+
 msgid "Order ID"
 msgstr "رقم فاتورة الشراء"
 
