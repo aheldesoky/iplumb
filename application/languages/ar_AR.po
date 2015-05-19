@@ -272,6 +272,9 @@ msgstr "عرض الواردات"
 msgid "Select Supplier"
 msgstr "اختر مورد"
 
+msgid "No Supplier"
+msgstr "بدون مورد"
+
 msgid "Add New Import"
 msgstr "إضافة وارد جديد"
 
@@ -285,10 +288,10 @@ msgid "Quantity"
 msgstr "الكمية"
 
 msgid "Buy Price"
-msgstr "ثمن شراء الوحدة"
+msgstr "سعر الشراء للوحدة"
 
 msgid "Sell Price"
-msgstr "ثمن بيع الوحدة"
+msgstr "سعر البيع للوحدة"
 
 msgid "Order ID"
 msgstr "رقم فاتورة الشراء"
@@ -303,7 +306,22 @@ msgid "Remaining"
 msgstr "المتبقي"
 
 msgid "Add Category to Import"
-msgstr "إضافة صنف للوارد"
+msgstr "إضافة بند للوارد"
+
+msgid "Add Category Doesn't Exist"
+msgstr "إضافة صنف غير موجود"
+
+msgid "Benefit as Bill Percentage"
+msgstr "الربح نسبة على الفاتورة"
+
+msgid "Import Discount Percentage"
+msgstr "نسبة الخصم علي فاتورة الوارد"
+
+msgid "Category has been added successfully"
+msgstr "تم إضافة الصنف بنجاح"
+
+msgid "You must select supplier"
+msgstr "يجب إختيار مورد"
 
 msgid "Edit Import"
 msgstr "تعديل الوارد"

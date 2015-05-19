@@ -381,3 +381,16 @@ table.dataTable thead .sorting:after {
 .autocomplete-suggestions strong { color: #2cadd5; font-weight: 700; }
 .autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
 .autocomplete-suggestion.autocomplete-selected { background: #FFF; }
+
+.table-category{
+    width: 100%;
+}
+.category-name {
+    width: 450px !important;
+}
+.category-value {
+    width: 100px !important;
+}
+.bootstrap-datetimepicker-widget{
+    width: auto !important;
+}

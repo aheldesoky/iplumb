@@ -50,6 +50,9 @@ class ImportController extends Zend_Controller_Action
             }
         }
         
+        $categoryForm = new Application_Form_Category();
+        $this->view->categroyForm = $categoryForm;
+        
         $this->view->form = $importForm;
     }
 

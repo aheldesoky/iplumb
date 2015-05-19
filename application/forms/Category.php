@@ -6,6 +6,7 @@ class Application_Form_Category extends Zend_Form
     public function init()
     {
         $this->setMethod('post');
+        $this->setAttrib('id', 'categoryForm');
         
         $this->addElement('text','categoryName', array(
             'label' => $this->getTranslator()->translate('Category Name'),
@@ -23,7 +24,7 @@ class Application_Form_Category extends Zend_Form
                 ))*/
             )
         ));
-        
+        /*
         $sizeModel = new Application_Model_Size();
         $sizes = array($this->getTranslator()->translate('No Size'));
         foreach ($sizeModel->getSizes() as $size)
@@ -41,7 +42,7 @@ class Application_Form_Category extends Zend_Form
                 ))
             )
         ));
-        
+        */
         $this->addElement('submit','submit',array(
             'label' => $this->getTranslator()->translate('Add Category'),
             'class' => 'btn btn-success'

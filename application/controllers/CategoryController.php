@@ -18,7 +18,7 @@ class CategoryController extends Zend_Controller_Action
         
         $this->view->categorys = $categoryModel->getCategorys();
     }
-    
+
     public function addAction()
     {
         $categoryForm = new Application_Form_Category();
@@ -98,5 +98,24 @@ class CategoryController extends Zend_Controller_Action
         ));
     }
 
+    public function ajaxAction()
+    {
+        $categoryForm = new Application_Form_Category();
+        
+        if($this->getRequest()->isPost()){
+            $data = $this->getRequest()->getPost();
+            unset($data['submit']);
+            
+            if($categoryForm->isValid($data)){
+                $categoryModel = new Application_Model_Category();
+                $categoryModel->addCategory($data);
+                $translate = Zend_Registry::get('Zend_Translate');
+                $this->getHelper('json')->sendJson( array('success' => $translate->translate('Category has been added successfully')) );
+            } else {
+                $this->getHelper('json')->sendJson( array('errors' => $categoryForm->getMessages()) );
+            }
+        }
+        
+    }
 
 }

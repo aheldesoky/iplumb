@@ -19,8 +19,8 @@
                     <?php foreach ($this->imports as $import) {?>
                     <tr>
                         <td><?php echo $import['importId'] ?></td>
-                        <td><?php echo $import['supplierName'] ?></td>
-                        <td><?php echo $import['importOrder'] ?></td>
+                        <td><?php echo ($import['supplierName'])? $import['supplierName'] : '-' ?></td>
+                        <td><?php echo ($import['importOrder'])? $import['importOrder'] : '-' ?></td>
                         <td><?php echo $import['importDate'] ?></td>
                         <td><?php echo $import['totalBuyPrice'] ?></td>
                         <td>
@@ -41,11 +41,11 @@
     </div>
 </div>
 
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+<!--<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
     <?php echo $this->translate('View') ?>
 </button>
 
-<!-- Modal -->
+<!-- Modal -- >
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -62,4 +62,4 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->
