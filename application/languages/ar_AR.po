@@ -275,6 +275,9 @@ msgstr "اختر مورد"
 msgid "No Supplier"
 msgstr "بدون مورد"
 
+msgid "Date is required"
+msgstr "يجب تحديد تاريخ الوارد"
+
 msgid "Add New Import"
 msgstr "إضافة وارد جديد"
 
