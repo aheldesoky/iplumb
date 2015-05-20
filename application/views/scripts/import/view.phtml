@@ -43,8 +43,8 @@
                 ?>
                     <?php foreach ($this->categories as $category) {
                         $totalQuantity  += $category['categoryQuantity'];
-                        $totalBuyPrice  += $category['categoryBuyPrice'];
-                        $totalSellPrice += $category['categorySellPrice'];
+                        $totalBuyPrice  += $category['categoryBuyPrice'] * $category['categoryQuantity'];
+                        $totalSellPrice += $category['categorySellPrice'] * $category['categoryQuantity'];
                     ?>
                     <tr>
                         <td><?php echo $category['categoryName'] . ' ' . $category['sizeValue'] ?></td>
