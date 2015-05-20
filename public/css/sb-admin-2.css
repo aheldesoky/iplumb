@@ -397,3 +397,9 @@ table.dataTable thead .sorting:after {
 #importCategories-label{
     display: none;
 }
+#viewImportModal .modal-dialog{
+    width: 80%;
+}
+#viewImportModal .modal-footer{
+    text-align: center;
+}

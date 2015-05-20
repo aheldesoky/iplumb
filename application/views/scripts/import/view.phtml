@@ -1,20 +1,51 @@
-<div class="panel panel-info">
+<div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title"><?php echo $this->translate('Import Categories') ?></h3>
-    </div>
-    <div class="panel-body">
-        <table class="table table-hover">
+        <table class="table text-center">
             <thead>
                 <tr>
-                    <th><?php echo $this->translate('Category Name') ?></th>
-                    <th><?php echo $this->translate('Quantity') ?></th>
-                    <th><?php echo $this->translate('Buy Price') ?></th>
-                    <th><?php echo $this->translate('Sell Price') ?></th>
+                    <th class="text-center"><?php echo $this->translate('Supplier') ?></th>
+                    <th class="text-center"><?php echo $this->translate('Order ID') ?></th>
+                    <th class="text-center"><?php echo $this->translate('Date') ?></th>
+                    <?php if($this->import['importDiscount']){ ?>
+                    <th class="text-center"><?php echo $this->translate('Discount') ?></th>
+                    <?php }?>
+                    <th class="text-center"><?php echo $this->translate('Total Price') ?></th>
                 </tr>
             </thead>
             <tbody>
-                <?php if ($this->categories) {   //echo '<pre>';  print_r($this->categories); ?>
-                    <?php foreach ($this->categories as $category) {?>
+                <tr>
+                    <th class="text-center"><?php echo ($this->import['supplierName'])? $this->import['supplierName'] : '-' ?></th>
+                    <th class="text-center"><?php echo ($this->import['importOrder'])? $this->import['importOrder'] : '-' ?></th>
+                    <th class="text-center"><?php echo $this->import['importDate'] ?></th>
+                    <?php if($this->import['importDiscount']){ ?>
+                    <th class="text-center"><?php echo $this->import['importDiscount'] ?></th>
+                    <?php }?>
+                    <th class="text-center danger"><?php echo ($this->import['importDiscount'])? $this->import['totalSellPrice'] : $this->import['totalBuyPrice'] ?></th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered text-center">
+            <thead>
+                <tr class="success">
+                    <th class="text-center"><?php echo $this->translate('Category Name') ?></th>
+                    <th class="text-center"><?php echo $this->translate('Quantity') ?></th>
+                    <th class="text-center"><?php echo $this->translate('Buy Price') ?></th>
+                    <th class="text-center"><?php echo $this->translate('Sell Price') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if ($this->categories) { 
+                    $totalQuantity = 0;
+                    $totalBuyPrice = 0;
+                    $totalSellPrice = 0;
+                ?>
+                    <?php foreach ($this->categories as $category) {
+                        $totalQuantity  += $category['categoryQuantity'];
+                        $totalBuyPrice  += $category['categoryBuyPrice'];
+                        $totalSellPrice += $category['categorySellPrice'];
+                    ?>
                     <tr>
                         <td><?php echo $category['categoryName'] . ' ' . $category['sizeValue'] ?></td>
                         <td><?php echo $category['categoryQuantity'] ?></td>
@@ -22,13 +53,16 @@
                         <td><?php echo $category['categorySellPrice'] ?></td>
                     </tr>
                     <?php }?>
+                    <tr>
+                        <th class="warning text-center"><?php echo $this->translate('Total') ?></th>
+                        <th class="warning text-center"><?php echo $totalQuantity ?></th>
+                        <th class="warning text-center"><?php echo $totalBuyPrice ?></th>
+                        <th class="warning text-center"><?php echo $totalSellPrice ?></th>
+                    </tr>
                 <?php } else {?>
                     <tr><td colspan="4" class="text-center"><?php echo $this->translate('No imports yet') ?></td></tr>
                 <?php }?>
             </tbody>
         </table>
-    </div>
-    <div class="panel-footer text-center">
-        <a href="<?php echo $this->baseUrl();?>/import/add" class="btn btn-success"><?php echo $this->translate('Add New Import') ?></a>
     </div>
 </div>

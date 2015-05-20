@@ -35,7 +35,7 @@ class Application_Model_Import extends Zend_Db_Table_Abstract
         $select->where("i.importId=$importId");
         $select->group('i.importId');
         
-        return $this->fetchAll($select)->toArray();
+        return $this->fetchRow($select)->toArray();
     }
     
     public function addImport($import)

@@ -114,6 +114,8 @@ class ImportController extends Zend_Controller_Action
         
         $importCategoryModel = new Application_Model_ImportCategory();
         $this->view->categories = $importCategoryModel->getImportCategories($importId);
+        
+        $this->_helper->layout->disableLayout();
     }
 
 

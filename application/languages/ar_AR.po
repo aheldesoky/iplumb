@@ -335,6 +335,12 @@ msgstr "يجب تحديد نسبة الخصم"
 msgid "Edit Import"
 msgstr "تعديل الوارد"
 
+msgid "Close"
+msgstr "إغلاق"
+
+msgid "Total"
+msgstr "الكلي"
+
 msgid "Back to Import List"
 msgstr "الرجوع لقائمة الواردات"
 
