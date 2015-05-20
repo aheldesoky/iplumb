@@ -13,10 +13,18 @@ class ImportController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        $page = $this->getRequest()->getParam('page');
         $importModel = new Application_Model_Import();
+        $currentPage = $this->getRequest()->getParam('page');
+        $currentPage = ($currentPage) ? $currentPage : 1;
+        $importsPerPage = 10;
         
-        $this->view->imports = $importModel->getImports();
+        $this->view->imports = $importModel->getImports($currentPage, $importsPerPage);
+        
+        $this->view->totalPages = ceil($importModel->countImports() / $importsPerPage);
+        //echo $this->view->totalPages;//die;
+        //echo '<pre>';print_r($this->view->imports);die;
+        $this->view->currentPage = $currentPage;
+        
     }
 
     public function addAction()

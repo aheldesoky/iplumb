@@ -40,7 +40,34 @@ $this->headScript()->appendFile($this->baseUrl('/js/view.js'));
         </table>
     </div>
     <div class="panel-footer text-center">
-        <a href="<?php echo $this->baseUrl();?>/import/add" class="btn btn-success"><?php echo $this->translate('Add New Import') ?></a>
+        <!--<a href="<?php echo $this->baseUrl();?>/import/add" class="btn btn-success"><?php echo $this->translate('Add New Import') ?></a>-->
+        <nav>
+            <ul class="pagination pagination-sm">
+                <?php 
+                $totalPages = $this->totalPages;
+                $currentPage = $this->currentPage;
+                $prevPage = ($currentPage == 1)? $currentPage : $currentPage-1;
+                $nextPage = ($currentPage == $totalPages)? $currentPage: $currentPage+1;
+                ?>
+                <li class="<?php echo ($prevPage == $currentPage)? 'disabled' : '' ?>">
+                    <a href="<?php echo ($prevPage == $currentPage)? '#' : $this->baseUrl('/import/index/page/'.$prevPage) ?>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <?php for( $page = 1 ; $page <= $totalPages ; $page++ ){ ?>
+                <li class="<?php echo ($page == $currentPage)? 'active' : ''?>">
+                    <a href="<?php echo $this->baseUrl('/import/index/page/'.$page) ?>">
+                        <?php echo $page;?>
+                    </a>
+                </li>
+                <?php }?>
+                <li class="<?php echo ($nextPage == $currentPage)? 'disabled' : '' ?>">
+                    <a href="<?php echo ($nextPage == $currentPage)? '#' : $this->baseUrl('/import/index/page/'.$nextPage) ?>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 

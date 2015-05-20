@@ -5,7 +5,7 @@ class Application_Model_Import extends Zend_Db_Table_Abstract
     /** Table name */
     protected $_name= 'import';
     
-    public function getImports()
+    public function getImports($page, $importsPerPage)
     {
         $select = $this->select()->setIntegrityCheck(false);
         $select->from(array('i'=>'import'));
@@ -15,10 +15,17 @@ class Application_Model_Import extends Zend_Db_Table_Abstract
                 array('totalBuyPrice' => new Zend_Db_Expr('SUM(CASE WHEN ic.categoryBuyPrice IS NOT NULL THEN ic.categoryBuyPrice * ic.categoryQuantity ELSE 0 END)'), 
                       'totalSellPrice' => new Zend_Db_Expr('SUM(CASE WHEN ic.categorySellPrice IS NOT NULL THEN ic.categorySellPrice * ic.categoryQuantity ELSE 0 END)')
         ));
-        
         $select->group('i.importId');
+        $select->limitPage($page, $importsPerPage);
         
         return $this->fetchAll($select)->toArray();
+    }
+    
+    public function countImports()
+    {
+        $select = $this->select()->from("import", array("totalImports"=>"COUNT(*)"));
+        $result = $this->fetchRow($select)->toArray();
+        return $result['totalImports'];
     }
     
     public function getImportById($importId)
