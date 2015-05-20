@@ -22,7 +22,7 @@
                         <td><?php echo ($import['supplierName'])? $import['supplierName'] : '-' ?></td>
                         <td><?php echo ($import['importOrder'])? $import['importOrder'] : '-' ?></td>
                         <td><?php echo $import['importDate'] ?></td>
-                        <td><?php echo $import['totalBuyPrice'] ?></td>
+                        <td><?php echo ($import['importDiscount'])? $import['totalSellPrice'] : $import['totalBuyPrice'] ?></td>
                         <td>
                             <a href="<?php echo $this->baseUrl()?>/import/view/id/<?php echo $import['importId']?>" class="btn btn-info"><?php echo $this->translate('View') ?></a>
                             <a href="<?php echo $this->baseUrl()?>/import/edit/id/<?php echo $import['importId']?>" class="btn btn-warning"><?php echo $this->translate('Edit') ?></a>

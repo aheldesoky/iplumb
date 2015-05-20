@@ -1,8 +1,13 @@
 <?php 
-    $this->headLink()->appendStylesheet($this->baseUrl('/css/jquery-ui/jquery-ui.css'));
+    $this->headLink()->appendStylesheet($this->baseUrl('/css/bootstrap-datetimepicker.min.css'));
     
-    $this->headScript()->appendFile($this->baseUrl('/js/jquery-ui/jquery-ui.js'))
-                       ->appendFile($this->baseUrl('/js/jquery-ui/datepicker-ar.js'));
+    $this->headScript()->appendFile($this->baseUrl('/js/moment-2.7.0.min.js'))
+                       ->appendFile($this->baseUrl('/js/bootstrap-datetimepicker.min.js'))
+                       ->appendFile($this->baseUrl('/js/bootstrap-datetimepicker.ar.js'))
+                       //->appendFile($this->baseUrl('/js/jquery.autocomplete.js'))
+                       //->appendFile($this->baseUrl('/js/json2.min.js'))
+                       //->appendFile($this->baseUrl('/js/import.js'))
+                       ;
 ?>
 
 <div class="panel panel-warning">
@@ -16,13 +21,3 @@
         <a href="<?php echo $this->baseUrl();?>/import" class="btn btn-default"><?php echo $this->translate('Back to Import List') ?></a>
     </div>
 </div>
-<script>
-    $(function() {
-        $.datepicker.setDefaults( $.datepicker.regional[ "ar" ] );
-        
-        $( "#importDate" ).datepicker({
-            dateFormat: "yy-mm-dd"
-        });
-        
-    });
-</script>

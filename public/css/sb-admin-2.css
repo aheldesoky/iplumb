@@ -11,9 +11,9 @@ body {
     font-family: 'Droid Arabic Kufi', sans-serif;
 }
 
-/*input, textarea{
-    width: 100%;
-}*/
+input[type="text"]{
+    width: 450px;
+}
 
 #wrapper {
     margin-top: 15px;
@@ -393,4 +393,7 @@ table.dataTable thead .sorting:after {
 }
 .bootstrap-datetimepicker-widget{
     width: auto !important;
+}
+#importCategories-label{
+    display: none;
 }

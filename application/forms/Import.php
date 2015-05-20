@@ -11,14 +11,16 @@ class Application_Form_Import extends Zend_Form
         $this->addElement('hidden','importCategories', array(
             'required' => true,
         ));
-        /*
+        
         $this->addElement('text','importDiscount', array(
             'label' => $this->getTranslator()->translate('Import Discount Percentage'),
-            //'required' => true,
+            'required' => true,
+            'class' => 'number',
+            //'disabled' => true,
             'validators' => array(
                 array('notEmpty', true, array(
                         'messages' => array(
-                            'isEmpty' => $this->getTranslator()->translate('Value is required')
+                            'isEmpty' => $this->getTranslator()->translate('You must enter discount percentage')
                         )
                 )),
                 array('Digits', false, array(
@@ -28,7 +30,7 @@ class Application_Form_Import extends Zend_Form
                 )))
             ),
         ));
-        */
+        
         $supplierModel = new Application_Model_Supplier();
         $suppliers = array('0' => $this->getTranslator()->translate('No Supplier'));
         $suppliersArr = $supplierModel->getSuppliers();
@@ -52,6 +54,7 @@ class Application_Form_Import extends Zend_Form
         $this->addElement('text','importOrder', array(
             'label' => $this->getTranslator()->translate('Order ID'),
             //'required' => true,
+            'class' => 'number',
             'validators' => array(
                 array('notEmpty', true, array(
                         'messages' => array(

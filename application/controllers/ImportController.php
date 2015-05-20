@@ -71,11 +71,10 @@ class ImportController extends Zend_Controller_Action
         
         if($this->getRequest()->isPost()){
             $data = $this->getRequest()->getPost();
+            echo '<pre>';print_r($data);
             unset($data['submit']);
-            
-            if($data['importName'] == $size['importName'])
-                $sizeForm->getElement ('importName')->removeValidator ('db_NoRecordExists');
-            
+            unset($data['importCategories']);
+            $importForm->removeElement('importCategories');
             if($importForm->isValid($data)){
                 $importModel = new Application_Model_Import();
                 $importModel->editImport($importId, $data);

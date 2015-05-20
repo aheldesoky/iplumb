@@ -29,9 +29,9 @@
                 <tr class="category-row">
                     <td class="row-id">1</td>
                     <td><input type="text" name="category" id="category" class="category-name"></td>
-                    <td><input type="text" name="quantity" id="quantity" class="category-value"></td>
-                    <td class="col-buy-price"><input type="text" name="buyPrice" id="buyPrice" class="category-value"></td>
-                    <td><input type="text" name="sellPrice" id="sellPrice" class="category-value"></td>
+                    <td><input type="text" name="quantity" id="quantity" class="category-value number"></td>
+                    <td class="col-buy-price"><input type="text" name="buyPrice" id="buyPrice" class="category-value number float"></td>
+                    <td><input type="text" name="sellPrice" id="sellPrice" class="category-value number float"></td>
                     <td><a href="#" style="color:red" class="remove-category"><i class="fa fa-remove fa-fw"></i></a></td>
                 </tr>
                 <tr class="last-row">
@@ -51,10 +51,10 @@
                 </tr>
             </tbody>
         </table>
-        <!--<div>
+        <div>
             <input type="checkbox" name="billPercentage" id="billPercentage"/> 
             <label for="billPercentage"><?php echo $this->translate('Benefit as Bill Percentage') ?></label>
-        </div>-->
+        </div>
         <?php echo $this->form ?>
     </div>
     <div class="panel-footer text-center">
@@ -80,8 +80,3 @@
         </div>
     </div>
 </div>
-<style>
-    #categoryName{
-        width: 450px !important;
-    }
-</style>

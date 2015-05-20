@@ -128,15 +128,25 @@ $(function() {
             var category = {};
             category['categoryId'] = $(row).find('input[name="category"]').attr('data-id');
             category['categoryQuantity'] = $(row).find('input[name="quantity"]').val();
-            category['categoryBuyPrice'] = $(row).find('input[name="buyPrice"]').val();
+            category['categoryBuyPrice'] = $(row).find('input[name="buyPrice"]:enabled').val();
             category['categorySellPrice'] = $(row).find('input[name="sellPrice"]').val();
             
-            if(    !/^\d+$/.test(category['categoryId'])
-                || !/^\d+$/.test(category['categoryQuantity'])
-                || !/^\d+(\.\d*){0,1}$/.test(category['categoryBuyPrice'])
-                || !/^\d+(\.\d*){0,1}$/.test(category['categorySellPrice'])
-                ) valid = false;
-            
+            if($('#billPercentage').prop('checked')){
+                if(    !isInteger(category['categoryId'])
+                    || !isInteger(category['categoryQuantity'])
+                    || !isFloat(category['categorySellPrice'])
+                    ) { valid = false; }
+                category['categoryBuyPrice'] = 0;
+                
+            } else {
+                if(    !isInteger(category['categoryId'])
+                    || !isInteger(category['categoryQuantity'])
+                    || !isFloat(category['categoryBuyPrice'])
+                    || !isFloat(category['categorySellPrice'])
+                    ) { valid = false; }
+            }
+            console.log(category);
+            console.log(valid);
             if(!valid) return valid;
             global.categories[index] = category;
         });
@@ -144,6 +154,7 @@ $(function() {
         if(valid){
             $('#importCategories').val(JSON.stringify(global.categories));
             var importCategories = $('#importCategories').val(),
+                importDiscount = ($('#billPercentage').prop('checked')) ? $('#importDiscount').val() : 0,
                 importSupplier = $('#importSupplier').val(),
                 importOrder = $('#importOrder').val(),
                 importDate = $('#importDate').val();
@@ -153,7 +164,8 @@ $(function() {
                 dataType: 'json',
                 url: global.baseUrl + '/import/add',
                 async: false,
-                data: { importCategories: importCategories, 
+                data: { importCategories: importCategories,
+                        importDiscount: importDiscount, 
                         importSupplier: importSupplier, 
                         importOrder: importOrder, 
                         importDate: importDate },
@@ -175,14 +187,34 @@ $(function() {
         }
     });
     
+    $('#importDiscount-label, #importDiscount-element').hide(); 
+    $('#importDiscount').prop('disabled', true); 
     $('#billPercentage').click(function () {
         if(this.checked){ 
             $('.col-buy-price').hide(); 
+            $('#importDiscount-label, #importDiscount-element').show(); 
             $('input[name="buyPrice"]').prop('disabled', true); 
+            $('#importDiscount').prop('disabled', false); 
         }else{ 
             $('.col-buy-price').show(); 
+            $('#importDiscount-label, #importDiscount-element').hide(); 
             $('input[name="buyPrice"]').prop('disabled', false); 
+            $('#importDiscount').prop('disabled', true); 
         }
     });
     
+    $('.number').attr('type', 'number')
+    .on('keyup', function(){
+        $(this).removeClass('errors');
+        var value = $(this).val();
+        
+        if( $(this).hasClass('float') )
+            if( !isFloat(value) ) $(this).addClass('errors');
+        else
+            if( !isInteger(value) ) $(this).addClass('errors');
+    });
+    
+    function isInteger(value) { return /^\d+$/.test(value); }
+    function isFloat(value)   { return /^\d+(\.\d*){0,1}$/.test(value); }
+    function isPositive(value){ return (value >= 0); }
 });

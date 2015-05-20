@@ -329,6 +329,9 @@ msgstr "تم إضافة الصنف بنجاح"
 msgid "You must select supplier"
 msgstr "يجب إختيار مورد"
 
+msgid "You must enter discount percentage"
+msgstr "يجب تحديد نسبة الخصم"
+
 msgid "Edit Import"
 msgstr "تعديل الوارد"
 
