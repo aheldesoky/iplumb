@@ -68,6 +68,8 @@ class ImportController extends Zend_Controller_Action
         $importForm->getElement('submit')
                      ->setLabel($translate->translate('Edit Import'))
                      ->setAttrib('class', 'btn btn-warning');
+        if($import['importDiscount'] == 0)
+            $importForm->removeElement('importDiscount');
         
         if($this->getRequest()->isPost()){
             $data = $this->getRequest()->getPost();
@@ -75,6 +77,7 @@ class ImportController extends Zend_Controller_Action
             unset($data['submit']);
             unset($data['importCategories']);
             $importForm->removeElement('importCategories');
+            
             if($importForm->isValid($data)){
                 $importModel = new Application_Model_Import();
                 $importModel->editImport($importId, $data);
