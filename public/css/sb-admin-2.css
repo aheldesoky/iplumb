@@ -376,3 +376,6 @@ input[type="text"]{
 #viewImportModal .modal-footer{
     text-align: center;
 }
+div.DTTT_container{
+    float: left !important;
+}

@@ -1,10 +1,10 @@
 <?php 
     $this->headLink()->appendStylesheet($this->baseUrl('/js/DataTables-1.10.7/media/css/jquery.dataTables.min.css'))
-                     //->appendStylesheet($this->baseUrl('/js/DataTables-1.10.7/extensions/ColVis/css/dataTables.colVis.min.css'))
+                     ->appendStylesheet($this->baseUrl('/js/DataTables-1.10.7/extensions/TableTools/css/dataTables.tableTools.min.css'))
             ;
     
     $this->headScript()->appendFile($this->baseUrl('/js/DataTables-1.10.7/media/js/jquery.dataTables.min.js'))
-                       //->appendFile($this->baseUrl('/js/DataTables-1.10.7/extensions/ColVis/js/dataTables.colVis.min.js'))
+                       ->appendFile($this->baseUrl('/js/DataTables-1.10.7/extensions/TableTools/js/dataTables.tableTools.min.js'))
             ;
 ?>
 
@@ -55,7 +55,22 @@
                             "url": "//cdn.datatables.net/plug-ins/1.10.7/i18n/Arabic.json"
                         },
                         pageLength: 25,
-                        //dom: 'C<"clear">lfrtip'
+                        //dom: 'C<"clear">lfrtip',
+                        dom: 'T<"clear">lfrtip',
+                        tableTools: {
+                            "sSwfPath": "<?php echo $this->baseUrl('/js/DataTables-1.10.7/extensions/TableTools/swf/copy_csv_xls_pdf.swf')?>",
+                            //"sRowSelect": "os",
+                            "aButtons": [ 
+                                {
+                                    "sExtends": "copy",
+                                    "sButtonText": "نسخ"
+                                },
+                                {
+                                    "sExtends": "print",
+                                    "sButtonText": "طباعة"
+                                } 
+                            ]
+                        }
                     });
     });
 </script>

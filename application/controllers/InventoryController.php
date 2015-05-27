@@ -5,7 +5,10 @@ class InventoryController extends Zend_Controller_Action
 
     public function init()
     {
-        /* Initialize action controller here */
+        $authorization = Zend_Auth::getInstance();
+        if(!$authorization->hasIdentity()) {
+            $this->redirect('/auth/login');
+        }
     }
 
     public function indexAction()
