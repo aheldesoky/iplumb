@@ -29,6 +29,21 @@
                             $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
                             $action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
                             ?>
+                            <li class="<?php echo ($controller=='inventory')?'active':''?>">
+                                <a href="#">
+                                    <i class="fa fa-cubes fa-fw"></i> <?php echo $this->translate('Inventory') ?>
+                                    <span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-second-level <?php echo ($controller=='inventory')?'collapse in':''?>">
+                                    <li>
+                                        <a href="<?php echo $this->baseUrl().'/inventory' ?>">
+                                            <i class="fa fa-list fa-fw"></i> <?php echo $this->translate('Display Inventory') ?>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            
                             <li class="<?php echo ($controller=='import')?'active':''?>">
                                 <a href="#">
                                     <i class="fa fa-cubes fa-fw"></i> <?php echo $this->translate('Imports') ?>

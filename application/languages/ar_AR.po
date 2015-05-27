@@ -216,6 +216,16 @@ msgstr "تعديل المقاس"
 msgid "Back to Size List"
 msgstr "الرجوع لقائمة المقاسات"
 
+# ## INVENTORY
+msgid "Display Inventory"
+msgstr "عرض البضاعة"
+
+msgid "Inventory List"
+msgstr "قائمة المقاسات"
+
+msgid "Inventory"
+msgstr "المخزن"
+
 # ## SUPPLIER
 msgid "Suppliers List"
 msgstr "قائمة الموردين"

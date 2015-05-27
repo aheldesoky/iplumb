@@ -1,0 +1,56 @@
+<?php 
+    $this->headLink()->appendStylesheet('//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css');
+    
+    $this->headScript()->appendFile('//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js');
+?>
+
+<div class="panel panel-default">
+    <!--<div class="panel-heading"></div>-->
+    <div class="panel-body">
+        <table class="table text-center table-sortable">
+            <thead>
+                <tr class="success">
+                    <th class="text-center"><?php echo $this->translate('Category Name') ?></th>
+                    <th class="text-center"><?php echo $this->translate('Quantity') ?></th>
+                    <th class="text-center"><?php echo $this->translate('Sell Price') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if ($this->inventory) { 
+                    $totalQuantity = 0;
+                    $totalSellPrice = 0;
+                ?>
+                    <?php foreach ($this->inventory as $category) {
+                        $totalQuantity  += $category['categoryQuantity'];
+                        $totalSellPrice += $category['categorySellPrice'] * $category['categoryQuantity'];
+                    ?>
+                <tr class="<?php echo ($category['categoryQuantity']) ? '' : 'danger' ?>">
+                        <td><?php echo $category['categoryName'] ?></td>
+                        <td><?php echo $category['categoryQuantity'] ?></td>
+                        <td><?php echo $category['categorySellPrice'] ?></td>
+                    </tr>
+                    <?php }?>
+                <?php } else {?>
+                    <tr><td colspan="4" class="text-center"><?php echo $this->translate('No imports yet') ?></td></tr>
+                <?php }?>
+            </tbody>
+            <!--<tfoot>
+                <tr>
+                    <th class="warning text-center"><?php echo $this->translate('Total') ?></th>
+                    <th class="warning text-center"><?php echo $totalQuantity ?></th>
+                    <th class="warning text-center"><?php echo $totalSellPrice ?></th>
+                </tr>
+            </tfoot>-->
+        </table>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        $(".table-sortable").DataTable({
+            language: {
+                "url": "//cdn.datatables.net/plug-ins/1.10.7/i18n/Arabic.json"
+            },
+            pageLength: 25
+        });
+    });
+</script>
