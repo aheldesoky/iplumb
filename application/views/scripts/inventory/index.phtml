@@ -1,7 +1,11 @@
 <?php 
-    $this->headLink()->appendStylesheet('//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css');
+    $this->headLink()->appendStylesheet($this->baseUrl('/js/DataTables-1.10.7/media/css/jquery.dataTables.min.css'))
+                     //->appendStylesheet($this->baseUrl('/js/DataTables-1.10.7/extensions/ColVis/css/dataTables.colVis.min.css'))
+            ;
     
-    $this->headScript()->appendFile('//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js');
+    $this->headScript()->appendFile($this->baseUrl('/js/DataTables-1.10.7/media/js/jquery.dataTables.min.js'))
+                       //->appendFile($this->baseUrl('/js/DataTables-1.10.7/extensions/ColVis/js/dataTables.colVis.min.js'))
+            ;
 ?>
 
 <div class="panel panel-default">
@@ -46,11 +50,12 @@
 </div>
 <script>
     $(document).ready(function(){
-        $(".table-sortable").DataTable({
-            language: {
-                "url": "//cdn.datatables.net/plug-ins/1.10.7/i18n/Arabic.json"
-            },
-            pageLength: 25
-        });
+        var table = $(".table-sortable").DataTable({
+                        language: {
+                            "url": "//cdn.datatables.net/plug-ins/1.10.7/i18n/Arabic.json"
+                        },
+                        pageLength: 25,
+                        //dom: 'C<"clear">lfrtip'
+                    });
     });
 </script>
