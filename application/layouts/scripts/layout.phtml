@@ -1,6 +1,7 @@
 <?php echo $this->doctype() ?>
 <html>
     <head>
+        <link rel="shortcut icon" href="<?php echo $this->baseUrl('/images/favicon.ico')?>" />
         <?php echo $this->headMeta(); ?>
         <?php echo $this->headTitle() ?>
         <?php echo $this->headLink() ?>
@@ -16,7 +17,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand brand-style" href="<?php echo $this->baseUrl();?>"><?php echo $this->translate('iPlumb')?></a>
+                <a class="navbar-brand brand-style" href="<?php echo $this->baseUrl('/');?>"><?php echo $this->translate('iPlumb')?></a>
             </div>
             <!-- /.navbar-header -->
         </nav>
@@ -46,7 +47,7 @@
                             
                             <li class="<?php echo ($controller=='import')?'active':''?>">
                                 <a href="#">
-                                    <i class="fa fa-cubes fa-fw"></i> <?php echo $this->translate('Imports') ?>
+                                    <i class="fa fa-download fa-fw"></i> <?php echo $this->translate('Imports') ?>
                                     <span class="fa arrow"></span>
                                 </a>
                                 <ul class="nav nav-second-level <?php echo ($controller=='import')?'collapse in':''?>">
