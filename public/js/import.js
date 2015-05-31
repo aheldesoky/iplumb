@@ -108,7 +108,7 @@ $(function() {
         })
         
     }).on('click' , '.remove-category', function(){
-        if($('.category-row').length > 1)
+        if($('.table-category .category-row').length > 1)
             $(this).closest('.category-row').remove();
         $.each($('td.row-id'), function(index){
             $(this).html(index+1);
@@ -125,7 +125,7 @@ $(function() {
         var valid = true;
         
         $('ul.errors').remove();
-        $('.category-row').each(function(index, row){
+        $('.table-category .category-row').each(function(index, row){
             var category = {};
             category['categoryId'] = $(row).find('input[name="category"]').attr('data-id');
             category['categoryQuantity'] = $(row).find('input[name="quantity"]').val();
