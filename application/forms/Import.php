@@ -54,18 +54,18 @@ class Application_Form_Import extends Zend_Form
         $this->addElement('text','importOrder', array(
             'label' => $this->getTranslator()->translate('Order ID'),
             //'required' => true,
-            'class' => 'number',
+            //'class' => 'number',
             'validators' => array(
                 array('notEmpty', true, array(
                         'messages' => array(
                             'isEmpty' => $this->getTranslator()->translate('Value is required')
                         )
                 )),
-                array('Digits', false, array(
+                /*array('Digits', false, array(
                         'messages' => array(
                             'notDigits' => $this->getTranslator()->translate('Digits only allowed'),
                             'digitsStringEmpty' => $this->getTranslator()->translate('Digits only allowed')
-                )))
+                )))*/
             ),
         ));
         
