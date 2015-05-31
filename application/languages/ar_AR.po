@@ -82,6 +82,9 @@ msgstr "تقارير"
 msgid "Main Page"
 msgstr "الصفحة الرئيسية"
 
+msgid "Selling Page"
+msgstr "صفحة البيع"
+
 msgid "Logout"
 msgstr "تسجيل خروج"
 
@@ -324,6 +327,9 @@ msgstr "المتبقي"
 msgid "Add Category to Import"
 msgstr "إضافة بند للوارد"
 
+msgid "Add Category to Bill"
+msgstr "إضافة صنف للفاتورة"
+
 msgid "Add Category Doesn't Exist"
 msgstr "إضافة صنف غير موجود"
 
@@ -372,3 +378,30 @@ msgstr "يجب إدخال قيمة"
 
 msgid "This page still under development"
 msgstr "هذه الصفحة لا تزال تحت الإنشاء"
+
+msgid "Are you sure you want to DELETE user?"
+msgstr "هل أنت متأكد من حذف المستخدم؟"
+
+msgid "Are you sure you want to DELETE role?"
+msgstr "هل أنت متأكد من حذف الصلاحيات؟"
+
+msgid "Are you sure you want to DELETE category?"
+msgstr "هل أنت متأكد من حذف الصنف؟"
+
+msgid "Are you sure you want to DELETE import?"
+msgstr "هل أنت متأكد من حذف الوارد؟"
+
+msgid "Are you sure you want to DELETE supplier?"
+msgstr "هل أنت متأكد من حذف المورد؟"
+
+msgid "Yes"
+msgstr "نعم"
+
+msgid "No"
+msgstr "لا"
+
+msgid "Change category"
+msgstr "تغيير الصنف"
+
+msgid "Remove category"
+msgstr "حذف الصنف"

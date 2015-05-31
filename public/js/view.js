@@ -21,4 +21,14 @@ $(function() {
         });
     });
     
+    // GENERIC DELETE
+    $("a.btn-delete").on("click", function () {
+        var url = $(this).attr('data-url');
+        $('#deleteModal .modal-footer a').attr('href', url);
+        $('#deleteModal').modal();
+    });
+    $('#deleteModal').on('hidden.bs.modal', function () {
+        $('#deleteModal .modal-footer a').attr('href', '');
+    });
+    
 });

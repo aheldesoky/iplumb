@@ -91,7 +91,15 @@ class Application_Form_Import extends Zend_Form
         */
         $this->addElement('submit','submit',array(
             'label' => $this->getTranslator()->translate('Add Import'),
-            'class' => 'btn btn-success btn-lg'
+            'class' => 'btn btn-success btn-lg',
+            /*'decorators' => array(
+                    array(
+                        'HtmlTag', array(
+                            'tag'  => 'dl',
+                            'class' => 'text-center'
+                        )
+                    )
+                )*/
         ));
     }
 

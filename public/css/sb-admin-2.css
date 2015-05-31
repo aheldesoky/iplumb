@@ -379,3 +379,18 @@ input[type="text"]{
 div.DTTT_container{
     float: left !important;
 }
+.input-tagged{
+    border: 1px solid #CAD8F3;
+    background-color: #DEE7F8;
+}
+.edit-category {
+    cursor: pointer;
+}
+.remove-category{
+    cursor: pointer;
+    padding: 10px 0 10px 0;
+    color: red;
+}
+.modal-footer{
+    text-align: left;
+}

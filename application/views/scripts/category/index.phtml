@@ -1,3 +1,6 @@
+<?php 
+$this->headScript()->appendFile($this->baseUrl('/js/view.js'));
+?>
 <div class="panel panel-primary">
     <div class="panel-heading">
         <h3 class="panel-title"><?php echo $this->translate('Categorys List') ?></h3>
@@ -19,7 +22,7 @@
                         <td><?php echo $category['categoryName'] . ' ' . $category['sizeValue'] ?></td>
                         <td>
                             <a href="<?php echo $this->baseUrl()?>/category/edit/id/<?php echo $category['categoryId']?>" class="btn btn-warning"><?php echo $this->translate('Edit') ?></a>
-                            <a href="<?php echo $this->baseUrl()?>/category/delete/id/<?php echo $category['categoryId']?>" class="btn btn-danger"><?php echo $this->translate('Delete') ?></a>
+                            <a class="btn btn-danger btn-delete" data-url="<?php echo $this->baseUrl('/category/delete/id/'.$category['categoryId'])?>"><?php echo $this->translate('Delete') ?></a>
                         </td>
                     </tr>
                     <?php }?>
@@ -31,5 +34,18 @@
     </div>
     <div class="panel-footer text-center">
         <a href="<?php echo $this->baseUrl();?>/category/add" class="btn btn-success"><?php echo $this->translate('Add New Category') ?></a>
+    </div>
+</div>
+
+<!-- Delete Import Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body text-center"><?php echo $this->translate('Are you sure you want to DELETE category?') ?></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->translate('No') ?></button>
+                <a href="#" class="btn btn-danger"><?php echo $this->translate('Yes') ?></a>
+            </div>
+        </div>
     </div>
 </div>

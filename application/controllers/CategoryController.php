@@ -83,7 +83,7 @@ class CategoryController extends Zend_Controller_Action
         
         $this->redirect('/category');
     }
-
+    
     public function queryAction()
     {
         $query = $this->getRequest()->getParam('query');

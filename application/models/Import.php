@@ -16,6 +16,7 @@ class Application_Model_Import extends Zend_Db_Table_Abstract
                       'totalSellPrice' => new Zend_Db_Expr('SUM(CASE WHEN ic.categorySellPrice IS NOT NULL THEN ic.categorySellPrice * ic.categoryQuantity ELSE 0 END)')
         ));
         $select->group('i.importId');
+        $select->order('i.importDate ASC');
         $select->limitPage($page, $importsPerPage);
         
         return $this->fetchAll($select)->toArray();

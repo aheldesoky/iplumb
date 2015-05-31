@@ -1,3 +1,6 @@
+<?php 
+$this->headScript()->appendFile($this->baseUrl('/js/view.js'));
+?>
 <div class="panel panel-primary">
     <div class="panel-heading">
         <h3 class="panel-title"><?php echo $this->translate('Users List') ?></h3>
@@ -23,7 +26,7 @@
                         <td><?php echo $user['roleName'] ?></td>
                         <td>
                             <a href="<?php echo $this->baseUrl()?>/user/edit/id/<?php echo $user['userId']?>" class="btn btn-warning"><?php echo $this->translate('Edit') ?></a>
-                            <a href="<?php echo $this->baseUrl()?>/user/delete/id/<?php echo $user['userId']?>" class="btn btn-danger"><?php echo $this->translate('Delete') ?></a>
+                            <a class="btn btn-danger btn-delete" data-url="<?php echo $this->baseUrl('/user/delete/id/'.$user['userId'])?>"><?php echo $this->translate('Delete') ?></a>
                         </td>
                     </tr>
                     <?php }?>
@@ -35,5 +38,18 @@
     </div>
     <div class="panel-footer text-center">
         <a href="<?php echo $this->baseUrl();?>/user/add" class="btn btn-success"><?php echo $this->translate('Add New User') ?></a>
+    </div>
+</div>
+
+<!-- Delete Import Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body text-center"><?php echo $this->translate('Are you sure you want to DELETE user?') ?></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->translate('No') ?></button>
+                <a href="#" class="btn btn-danger"><?php echo $this->translate('Yes') ?></a>
+            </div>
+        </div>
     </div>
 </div>

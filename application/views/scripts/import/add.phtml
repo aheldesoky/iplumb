@@ -28,11 +28,14 @@
             <tbody>
                 <tr class="category-row">
                     <td class="row-id">1</td>
-                    <td><input type="text" name="category" id="category" class="category-name"></td>
+                    <td>
+                        <input type="text" name="category" id="category" class="category-name">
+                        <span class="fa fa-pencil fa-fw edit-category hidden" title="<?php echo $this->translate('Change category') ?>"></span>
+                    </td>
                     <td><input type="text" name="quantity" id="quantity" class="category-value number"></td>
                     <td class="col-buy-price"><input type="text" name="buyPrice" id="buyPrice" class="category-value number float"></td>
                     <td><input type="text" name="sellPrice" id="sellPrice" class="category-value number float"></td>
-                    <td><a href="#" style="color:red" class="remove-category"><i class="fa fa-remove fa-fw"></i></a></td>
+                    <td><span class="fa fa-remove fa-fw remove-category" title="<?php echo $this->translate('Remove category') ?>"></span></td>
                 </tr>
                 <tr class="last-row">
                     <td></td>
@@ -57,7 +60,7 @@
         </div>
         <?php echo $this->form ?>
     </div>
-    <div class="panel-footer text-center">
+    <div class="panel-footer text-left">
         <a href="<?php echo $this->baseUrl('/import');?>" class="btn btn-default"><?php echo $this->translate('Back to Import List') ?></a>
     </div>
 </div>
@@ -80,3 +83,17 @@
         </div>
     </div>
 </div>
+
+<table class="hidden new-row">
+    <tr class="category-row">
+        <td class="row-id">1</td>
+        <td>
+            <input type="text" name="category" id="category" class="category-name">
+            <span class="fa fa-pencil fa-fw edit-category hidden" title="<?php echo $this->translate('Change category') ?>"></span>
+        </td>
+        <td><input type="text" name="quantity" id="quantity" class="category-value number"></td>
+        <td class="col-buy-price"><input type="text" name="buyPrice" id="buyPrice" class="category-value number float"></td>
+        <td><input type="text" name="sellPrice" id="sellPrice" class="category-value number float"></td>
+        <td><span class="fa fa-remove fa-fw remove-category" title="<?php echo $this->translate('Remove category') ?>"></span></td>
+    </tr>
+</table>

@@ -14,35 +14,38 @@ $(function() {
     global.baseUrl = $('#baseUrl').val();
     global.categories = [];
     
-    $("#importDate").datetimepicker({
+    $("#billDate").datetimepicker({
         pickTime: false,
         language: 'ar'
     });
 
     $("#addcategory").on("click", function () {
-        var row =   $('.new-row tbody').html();
+        var row =   '<tr class="category-row">\n\
+                        <td class="row-id"></td>\n\
+                        <td>\n\
+                                <input type="text" name="category" id="category" class="category-name">\n\
+                                <span class="fa fa-pencil fa-fw edit-category hidden"></span>\n\
+                        </td>\n\
+                        <td><input type="text" name="quantity" id="quantity" class="category-value"></td>\n\
+                        <td><input type="text" name="sellPrice" id="sellPrice" class="category-value"></td>\n\
+                        <td><span class="fa fa-remove fa-fw remove-category"></span></td>\n\
+                    </tr>';
         $('.last-row').before(row);
         $.each($('td.row-id'), function(index){
             $(this).html(index+1);
         });
-        if($('#billPercentage:checked').length){
-            $('.col-buy-price').hide(); 
-            $('input[name="buyPrice"]').prop('disabled', true);
-        }else{
-            $('.col-buy-price').show();
-            $('input[name="buyPrice"]').prop('disabled', false);
-        }
-        
     });
     
-    $("#addnewcategory").on("click", function(){
-        $('#addNewCategoryModal').modal();
-    });
+    $("#addnewcustomer").on("click", function(){
+        $('#addNewCustomerModal').modal();
+    })
     
-    $('#addNewCategoryModal').on('hidden.bs.modal', function () {
+    $('#addNewCustomerModal').on('hidden.bs.modal', function () {
         $('#success-msg').addClass('hidden');
-        $('#categoryName').val('');
-        $('#categoryForm .errors').remove();
+        $('#customerName').val('');
+        $('#customerPhone').val('');
+        $('#customerNotes').val('');
+        $('#customerForm .errors').remove();
     }); 
     
     $("#addNewCategoryModal #categoryForm").on("submit", function (e) {
@@ -74,14 +77,14 @@ $(function() {
     });
     
     $('#categoryName').autocomplete({
-	serviceUrl: global.baseUrl + '/category/query',
-	minChars:1,
-	delimiter: /(,|;)\s*/, // regex or character
-	maxHeight:400,
-	zIndex: 9999,
-	deferRequestBy: 0, //miliseconds
+        serviceUrl: global.baseUrl + '/category/query',
+        minChars:1,
+        delimiter: /(,|;)\s*/, // regex or character
+        maxHeight:400,
+        zIndex: 9999,
+        deferRequestBy: 0, //miliseconds
         triggerSelectOnValidInput: false,
-	noCache: true, //default is false, set to true to disable caching
+        noCache: true, //default is false, set to true to disable caching
     });
     
     $('.table-category').on('click', 'input[name="category"]', function(){
@@ -94,7 +97,7 @@ $(function() {
             zIndex: 9999,
             deferRequestBy: 0, //miliseconds
             triggerSelectOnValidInput: false,
-            params: { import:true }, //aditional parameters
+            params: { import:false }, //aditional parameters
             noCache: true, //default is false, set to true to disable caching
             onSelect: function(category){
                 var decoded = $("<div/>").html(category.value).text();
@@ -103,7 +106,6 @@ $(function() {
                        .prop('readonly',true)
                        .addClass('text-center input-tagged')
                        .next().removeClass('hidden');
-                $(this).parent().next().find('input').focus();
             }
         })
         
@@ -116,7 +118,6 @@ $(function() {
     }).on('click' , '.edit-category' , function(){
         $(this).prev().prop('readonly',false)
                       .removeClass('text-center input-tagged')
-                      .focus()
                       .next().addClass('hidden');
     });
     

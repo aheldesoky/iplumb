@@ -9,9 +9,9 @@ $this->headScript()->appendFile($this->baseUrl('/js/view.js'));
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th><?php echo $this->translate('Supplier') ?></th>
+                    <!--<th>#</th>-->
                     <th><?php echo $this->translate('Order ID') ?></th>
+                    <th><?php echo $this->translate('Supplier') ?></th>
                     <th><?php echo $this->translate('Date') ?></th>
                     <th><?php echo $this->translate('Total Price') ?></th>
                     <th><?php echo $this->translate('Actions') ?></th>
@@ -21,15 +21,15 @@ $this->headScript()->appendFile($this->baseUrl('/js/view.js'));
                 <?php if ($this->imports) {?>
                     <?php foreach ($this->imports as $import) {?>
                     <tr>
-                        <td><?php echo $import['importId'] ?></td>
-                        <td><?php echo ($import['supplierName'])? $import['supplierName'] : '-' ?></td>
+                        <!--<td><?php echo $import['importId'] ?></td>-->
                         <td><?php echo ($import['importOrder'])? $import['importOrder'] : '-' ?></td>
+                        <td><?php echo ($import['supplierName'])? $import['supplierName'] : '-' ?></td>
                         <td><?php echo $import['importDate'] ?></td>
                         <td><?php echo ($import['importDiscount'])? $import['totalSellPrice'] : $import['totalBuyPrice'] ?></td>
                         <td>
                             <a href="#" class="btn btn-info btn-import-view" data-id="<?php echo $import['importId']?>"><?php echo $this->translate('View') ?></a>
-                            <a href="<?php echo $this->baseUrl()?>/import/edit/id/<?php echo $import['importId']?>" class="btn btn-warning"><?php echo $this->translate('Edit') ?></a>
-                            <a href="<?php echo $this->baseUrl()?>/import/delete/id/<?php echo $import['importId']?>" class="btn btn-danger"><?php echo $this->translate('Delete') ?></a>
+                            <a href="<?php echo $this->baseUrl('/import/edit/id/'.$import['importId'])?>" class="btn btn-warning"><?php echo $this->translate('Edit') ?></a>
+                            <a class="btn btn-danger btn-delete" data-url="<?php echo $this->baseUrl('/import/delete/id/'.$import['importId'])?>"><?php echo $this->translate('Delete') ?></a>
                         </td>
                     </tr>
                     <?php }?>
@@ -71,13 +71,26 @@ $this->headScript()->appendFile($this->baseUrl('/js/view.js'));
     </div>
 </div>
 
-<!-- Modal -->
+<!-- View Import Modal -->
 <div class="modal fade" id="viewImportModal" tabindex="-1" role="dialog" aria-labelledby="viewImportModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body"></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><?php echo $this->translate('Close') ?></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Import Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body text-center"><?php echo $this->translate('Are you sure you want to DELETE import?') ?></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->translate('No') ?></button>
+                <a href="#" class="btn btn-danger"><?php echo $this->translate('Yes') ?></a>
             </div>
         </div>
     </div>

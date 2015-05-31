@@ -29,22 +29,13 @@ class Application_Model_Category extends Zend_Db_Table_Abstract
         return $this->delete("categoryId=$categoryId");
     }
 
-    public function getCategorysByQuery($query, $import = false)
+    public function getCategorysByQuery($query)
     {
-        if($import){
-            $select = $this->select()->setIntegrityCheck(false)->distinct(true);
-            $select->from(array('category', 'size'), 
-                          array('data'  =>  'categoryId', 
-                                'value' =>  new Zend_Db_Expr ('CONCAT_WS(" ",categoryName,sizeValue)')
-                    ));
-            $select->joinLeft('size', 'sizeId=categorySize', array());
-            $select->where("categoryName LIKE '%$query%'");
-            //echo $select->__toString();die;
-        } else {
-            $select = $this->select()->distinct(true);
-            $select->from('category', array('data'=>'categoryName', 'value'=>'categoryName'));
-            $select->where("categoryName LIKE '%$query%'");
-        }
+        
+        $select = $this->select()->distinct(true);
+        $select->from('category', array('data'=>'categoryId', 'value'=>'categoryName'));
+        $select->where("categoryName LIKE '%$query%'");
+        
         return $this->fetchAll($select)->toArray();
     }
     
