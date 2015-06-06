@@ -1,85 +1,96 @@
 <?php 
-    $this->headLink()->appendStylesheet($this->baseUrl('/css/bootstrap-datetimepicker.min.css'));
-    
-    $this->headScript()->appendFile($this->baseUrl('/js/moment-2.7.0.min.js'))
-                       ->appendFile($this->baseUrl('/js/bootstrap-datetimepicker.min.js'))
-                       ->appendFile($this->baseUrl('/js/bootstrap-datetimepicker.ar.js'))
-                       ->appendFile($this->baseUrl('/js/jquery.autocomplete.js'))
-                       ->appendFile($this->baseUrl('/js/json2.min.js'))
-                       ->appendFile($this->baseUrl('/js/billing.js'));
+$this->headScript()->appendFile($this->baseUrl('/js/view.js'));
 ?>
-
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <h3 class="panel-title"><?php echo $this->translate('Selling Page') ?></h3>
+        <h3 class="panel-title"><?php echo $this->translate('Sales List') ?></h3>
     </div>
     <div class="panel-body">
-        <table class="table table-bordered text-center table-category">
+        <table class="table table-hover">
             <thead>
                 <tr>
-                    <th class="text-center">#</th>
-                    <th class="text-center"><?php echo $this->translate('Category Name') ?></th>
-                    <th class="text-center"><?php echo $this->translate('Quantity') ?></th>
-                    <th class="text-center"><?php echo $this->translate('Sell Price') ?></th>
-                    <th class="text-center"></th>
+                    <th><?php echo $this->translate('Invoice Number') ?></th>
+                    <th><?php echo $this->translate('Date') ?></th>
+                    <th><?php echo $this->translate('Customer Name') ?></th>
+                    <th><?php echo $this->translate('Total Due') ?></th>
+                    <th><?php echo $this->translate('Actions') ?></th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="category-row">
-                    <td class="row-id">1</td>
-                    <td>
-                        <input type="text" name="category" id="category" class="category-name">
-                        <span class="fa fa-pencil fa-fw edit-category hidden"></span>
-                    </td>
-                    <td>
-                        <input type="text" name="quantity" id="quantity" class="category-value number text-center" data-quantity="">
-                        <span><?php echo $this->translate('from') ?> <span class="category-quantity">0</span></span>
-                    </td>
-                    <td>
-                        <input type="text" name="sellPrice" id="sellPrice" class="category-value number float text-center" data-price="">
-                        <span class="category-sell-price"></span>
-                    </td>
-                    <td><span class="fa fa-remove fa-fw remove-category"></span></td>
-                </tr>
-                <tr class="last-row">
-                    <td></td>
-                    <td>
-                        <button id="addcategory" class="btn btn-success" data-role="button">
-                            <i class="fa fa-plus-circle fa-fw"></i> <?php echo $this->translate('Add Category to Bill') ?>
-                        </button>
-                    </td>
-                    <td class="total-quantity"></td>
-                    <td class="total-due"></td>
-                    <td></td>
-                </tr>
+                <?php if ($this->sales) {?>
+                    <?php foreach ($this->sales as $sale) {?>
+                    <tr>
+                        <td><?php echo $sale['saleId'] ?></td>
+                        <td><?php echo $sale['saleDate'] ?></td>
+                        <td><?php echo ($sale['customerName'])? $sale['customerName'] : '-' ?></td>
+                        <td><?php echo $sale['totalSellPrice'] - $sale['saleDiscount'] ?></td>
+                        <td>
+                            <a href="<?php echo $this->baseUrl('/sale/bill/id/'.$sale['saleId'])?>" class="btn btn-info" target="_blank"><?php echo $this->translate('View Bill') ?></a>
+                            <!--<a href="#" class="btn btn-info btn-sale-view" data-id="<?php echo $sale['saleId']?>"><?php echo $this->translate('View') ?></a>-->
+                            <!--<a href="<?php echo $this->baseUrl('/sale/edit/id/'.$sale['saleId'])?>" class="btn btn-warning"><?php echo $this->translate('Edit') ?></a>-->
+                            <a class="btn btn-danger btn-delete" data-url="<?php echo $this->baseUrl('/sale/delete/id/'.$sale['saleId'])?>"><?php echo $this->translate('Refund') ?></a>
+                        </td>
+                    </tr>
+                    <?php }?>
+                <?php } else {?>
+                    <tr><td colspan="6" class="text-center"><?php echo $this->translate('No sales yet') ?></td></tr>
+                <?php }?>
             </tbody>
         </table>
-        <div class="">
-            <?php echo $this->form; ?>
-        </div>
     </div>
-    <!--
     <div class="panel-footer text-center">
-        <a href="<?php echo $this->baseUrl('/import');?>" class="btn btn-default"><?php echo $this->translate('Back to Import List') ?></a>
+        <!--<a href="<?php echo $this->baseUrl();?>/sale/add" class="btn btn-success"><?php echo $this->translate('Add New Sale') ?></a>-->
+        <nav>
+            <ul class="pagination pagination-sm">
+                <?php 
+                $totalPages = $this->totalPages;
+                $currentPage = $this->currentPage;
+                $prevPage = ($currentPage == 1)? $currentPage : $currentPage-1;
+                $nextPage = ($currentPage == $totalPages)? $currentPage: $currentPage+1;
+                ?>
+                <li class="<?php echo ($prevPage == $currentPage)? 'disabled' : '' ?>">
+                    <a href="<?php echo ($prevPage == $currentPage)? '#' : $this->baseUrl('/sale/index/page/'.$prevPage) ?>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <?php for( $page = 1 ; $page <= $totalPages ; $page++ ){ ?>
+                <li class="<?php echo ($page == $currentPage)? 'active' : ''?>">
+                    <a href="<?php echo $this->baseUrl('/sale/index/page/'.$page) ?>">
+                        <?php echo $page;?>
+                    </a>
+                </li>
+                <?php }?>
+                <li class="<?php echo ($nextPage == $currentPage)? 'disabled' : '' ?>">
+                    <a href="<?php echo ($nextPage == $currentPage)? '#' : $this->baseUrl('/sale/index/page/'.$nextPage) ?>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
-    -->
 </div>
 
-<table class="hidden new-row">
-    <tr class="category-row">
-        <td class="row-id">1</td>
-        <td>
-            <input type="text" name="category" id="category" class="category-name">
-            <span class="fa fa-pencil fa-fw edit-category hidden"></span>
-        </td>
-        <td>
-            <input type="text" name="quantity" id="quantity" class="category-value number text-center" data-quantity="">
-            <span><?php echo $this->translate('from') ?> <span class="category-quantity">0</span></span>
-        </td>
-        <td>
-            <input type="text" name="sellPrice" id="sellPrice" class="category-value number float text-center" data-price="">
-            <span class="category-sell-price"></span>
-        </td>
-        <td><span class="fa fa-remove fa-fw remove-category"></span></td>
-    </tr>
-</table>
+<!-- View Sale Modal -->
+<div class="modal fade" id="viewSaleModal" tabindex="-1" role="dialog" aria-labelledby="viewSaleModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><?php echo $this->translate('Close') ?></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Sale Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body text-center"><?php echo $this->translate('Are you sure you want to REFUND sale?') ?></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->translate('No') ?></button>
+                <a href="#" class="btn btn-danger"><?php echo $this->translate('Yes') ?></a>
+            </div>
+        </div>
+    </div>
+</div>

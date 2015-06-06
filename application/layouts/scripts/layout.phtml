@@ -31,11 +31,15 @@
                             $action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
                             ?>
                             <li class="<?php echo ($controller=='sale')?'active':''?>">
-                                <a href="<?php echo $this->baseUrl().'/sale' ?>">
-                                    <i class="fa fa-cubes fa-fw"></i> <?php echo $this->translate('Selling Page') ?>
+                                <a href="<?php echo $this->baseUrl().'/sale/add' ?>">
+                                    <i class="fa fa-cart-plus fa-fw"></i> <?php echo $this->translate('Selling Page') ?>
                                 </a>
                             </li>
-                            
+                            <li class="<?php echo ($controller=='sale')?'active':''?>">
+                                <a href="<?php echo $this->baseUrl().'/sale' ?>">
+                                    <i class="fa fa-shopping-cart fa-fw"></i> <?php echo $this->translate('Sales') ?>
+                                </a>
+                            </li>
                             <li class="<?php echo ($controller=='inventory')?'active':''?>">
                                 <a href="#">
                                     <i class="fa fa-cubes fa-fw"></i> <?php echo $this->translate('Inventory') ?>

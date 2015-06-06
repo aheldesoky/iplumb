@@ -13,9 +13,18 @@ class SaleController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        $saleForm = new Application_Form_Sale();
+        $saleModel = new Application_Model_Sale();
+        $currentPage = $this->getRequest()->getParam('page');
+        $currentPage = ($currentPage) ? $currentPage : 1;
+        $salesPerPage = 10;
         
-        $this->view->form = $saleForm;
+        $this->view->sales = $saleModel->getSales($currentPage, $salesPerPage);
+        
+        $this->view->totalPages = ceil($saleModel->countSales() / $salesPerPage);
+        //echo $this->view->totalPages;//die;
+        //echo '<pre>';print_r($this->view->sales);die;
+        $this->view->currentPage = $currentPage;
+        
     }
 
     public function addAction()
@@ -54,6 +63,8 @@ class SaleController extends Zend_Controller_Action
             } else {
                 $this->getHelper('json')->sendJson( array('errors' => $saleForm->getMessages()) );
             }
+        } else {
+            $this->view->form = $saleForm;
         }
         
     }
@@ -79,5 +90,16 @@ class SaleController extends Zend_Controller_Action
         $this->_helper->layout()->disableLayout();
     }
 
+    public function deleteAction()
+    {
+        $saleId = $this->getRequest()->getParam('id');
+        $saleModel = new Application_Model_Sale();
+        $saleCategoryModel = new Application_Model_SaleCategory();
+        
+        $saleModel->deleteSale($saleId);
+        $saleCategoryModel->deleteSaleCategories($saleId);
+        
+        $this->redirect('/sale');
+    }
 
 }

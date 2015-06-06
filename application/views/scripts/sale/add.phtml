@@ -1,4 +1,85 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Sale</b> and script/action name <b>add</b></p>
+<?php 
+    $this->headLink()->appendStylesheet($this->baseUrl('/css/bootstrap-datetimepicker.min.css'));
+    
+    $this->headScript()->appendFile($this->baseUrl('/js/moment-2.7.0.min.js'))
+                       ->appendFile($this->baseUrl('/js/bootstrap-datetimepicker.min.js'))
+                       ->appendFile($this->baseUrl('/js/bootstrap-datetimepicker.ar.js'))
+                       ->appendFile($this->baseUrl('/js/jquery.autocomplete.js'))
+                       ->appendFile($this->baseUrl('/js/json2.min.js'))
+                       ->appendFile($this->baseUrl('/js/billing.js'));
+?>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title"><?php echo $this->translate('Selling Page') ?></h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered text-center table-category">
+            <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center"><?php echo $this->translate('Category Name') ?></th>
+                    <th class="text-center"><?php echo $this->translate('Quantity') ?></th>
+                    <th class="text-center"><?php echo $this->translate('Sell Price') ?></th>
+                    <th class="text-center"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="category-row">
+                    <td class="row-id">1</td>
+                    <td>
+                        <input type="text" name="category" id="category" class="category-name">
+                        <span class="fa fa-pencil fa-fw edit-category hidden"></span>
+                    </td>
+                    <td>
+                        <input type="text" name="quantity" id="quantity" class="category-value number text-center" data-quantity="">
+                        <span><?php echo $this->translate('from') ?> <span class="category-quantity">0</span></span>
+                    </td>
+                    <td>
+                        <input type="text" name="sellPrice" id="sellPrice" class="category-value number float text-center" data-price="">
+                        <span class="category-sell-price"></span>
+                    </td>
+                    <td><span class="fa fa-remove fa-fw remove-category"></span></td>
+                </tr>
+                <tr class="last-row">
+                    <td></td>
+                    <td>
+                        <button id="addcategory" class="btn btn-success" data-role="button">
+                            <i class="fa fa-plus-circle fa-fw"></i> <?php echo $this->translate('Add Category to Bill') ?>
+                        </button>
+                    </td>
+                    <td class="total-quantity"></td>
+                    <td class="total-due"></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="">
+            <?php echo $this->form; ?>
+        </div>
+    </div>
+    <!--
+    <div class="panel-footer text-center">
+        <a href="<?php echo $this->baseUrl('/import');?>" class="btn btn-default"><?php echo $this->translate('Back to Import List') ?></a>
+    </div>
+    -->
 </div>
+
+<table class="hidden new-row">
+    <tr class="category-row">
+        <td class="row-id">1</td>
+        <td>
+            <input type="text" name="category" id="category" class="category-name">
+            <span class="fa fa-pencil fa-fw edit-category hidden"></span>
+        </td>
+        <td>
+            <input type="text" name="quantity" id="quantity" class="category-value number text-center" data-quantity="">
+            <span><?php echo $this->translate('from') ?> <span class="category-quantity">0</span></span>
+        </td>
+        <td>
+            <input type="text" name="sellPrice" id="sellPrice" class="category-value number float text-center" data-price="">
+            <span class="category-sell-price"></span>
+        </td>
+        <td><span class="fa fa-remove fa-fw remove-category"></span></td>
+    </tr>
+</table>

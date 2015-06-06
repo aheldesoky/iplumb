@@ -394,6 +394,9 @@ msgstr "هل أنت متأكد من حذف الوارد؟"
 msgid "Are you sure you want to DELETE supplier?"
 msgstr "هل أنت متأكد من حذف المورد؟"
 
+msgid "Are you sure you want to REFUND sale?"
+msgstr "هل أنت متأكد من إسترجاع المبيع؟"
+
 msgid "Yes"
 msgstr "نعم"
 
@@ -447,3 +450,15 @@ msgstr "الكاشير"
 
 msgid "Print"
 msgstr "طباعة"
+
+msgid "Sales"
+msgstr "المبيعات"
+
+msgid "Sales List"
+msgstr "قائمة المبيعات"
+
+msgid "View Bill"
+msgstr "عرض الفاتورة"
+
+msgid "Refund"
+msgstr "إسترجاع"
