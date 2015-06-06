@@ -81,9 +81,15 @@ class SaleController extends Zend_Controller_Action
         $categories = $saleCategoryModel->getSaleCategories($saleId);
         $customer = $customerModel->getCustomerById($sale['saleCustomer']);
         
+        $totalDue = 0;
+        foreach ($categories as $category){
+            $totalDue += $category['categoryQuantity'] * $category['categorySellPrice'];
+        }
+        
         $userInfo = Zend_Auth::getInstance()->getStorage()->read();        
         $this->view->user = $userInfo->userFullname;
         $this->view->sale = $sale;
+        $this->view->totalDue = $totalDue;
         $this->view->categories = $categories;
         $this->view->customer = $customer;
         

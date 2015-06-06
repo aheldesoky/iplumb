@@ -50,7 +50,7 @@
                     </tr>
                     <tr>
                         <td class="meta-head"><?php echo $this->translate('Total Due') ?></td>
-                        <td><div class="due">1000</div></td>
+                        <td><div class="due"><?php echo $this->totalDue - $this->sale['saleDiscount'] ?></div></td>
                     </tr>
                 </table>
                 <div id="customer-title">
@@ -63,10 +63,7 @@
                     <th><?php echo $this->translate('Category') ?></th>
                     <th><?php echo $this->translate('Price L.E.') ?></th>
                 </tr>
-                <?php $total=0; ?>
-                <?php foreach ( $this->categories as $category ) { 
-                    $total += $category['categoryQuantity'] * $category['categorySellPrice'];
-                ?>
+                <?php foreach ( $this->categories as $category ) { ?>
                     <tr class="item-row">
                         <td class="item-name"><?php echo $category['categoryId'] ?></td>
                         <td class="description"><?php echo $category['categoryName'] ?></td>
@@ -78,7 +75,7 @@
                 <tr class="last-row">
                     <td class="blank"></td>
                     <td class="total-value bold"><b><?php echo $this->translate('Subtotal') ?></b></td>
-                    <td class="total-value bold"><div id="subtotal"><?php echo $total ?></div></td>
+                    <td class="total-value bold"><div id="subtotal"><?php echo $this->totalDue ?></div></td>
                 </tr>
                 <tr>
                     <td class="blank"></td>
@@ -89,7 +86,7 @@
                 <tr>
                     <td class="last-row"></td>
                     <td class="total-value bold"><?php echo $this->translate('Total') ?></td>
-                    <td class="total-value bold"><div id="total"><?php echo $total - $this->sale['saleDiscount'] ?></div></td>
+                    <td class="total-value bold"><div id="total"><?php echo $this->totalDue - $this->sale['saleDiscount'] ?></div></td>
                 </tr>
                 
             </table>
