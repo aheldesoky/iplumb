@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+        <title></title>
+        <link rel='stylesheet' type='text/css' href='<?php echo $this->baseUrl('/css/bootstrap.min.css') ?>' media='screen' />
+        <link rel='stylesheet' type='text/css' href='<?php echo $this->baseUrl('/css/style-bill.css') ?>' />
+        <link rel='stylesheet' type='text/css' href='<?php echo $this->baseUrl('/css/print.css') ?>' media="print" />
+    </head>
+    <body>
+        <div id="page-wrap" class="page-border">
+            <div class="print-control">
+                <a href="javascript:window.print()" class="btn btn-lg btn-default btn-print"><?php echo $this->translate('Print') ?></a>
+                <a href="javascript:window.close()" class="btn btn-lg btn-default btn-print"><?php echo $this->translate('Close') ?></a>
+            </div>
+            <div id="header"><?php echo $this->translate('INVOICE') ?></div>
+            <div id="identity">
+                <div id="logo">
+                    <img id="image" src="<?php echo $this->baseUrl('/images/dream-logo.gif') ?>" alt="logo" />
+                </div>
+                <div id="address">
+                    <div>Dream</div>
+                    <div>123 street</div>
+                    <div>Trade ST</div>
+                    <div>Phone: 012345678912</div>
+                </div>
+            </div>
+            
+            <div style="clear:both"></div>
+            <div id="customer">
+                <table id="meta">
+                    <tr>
+                        <td class="meta-head"><?php echo $this->translate('Invoice Number') ?></td>
+                        <td><?php echo $this->sale['saleId'] ?></td>
+                    </tr>
+                    <tr>
+                        <td class="meta-head"><?php echo $this->translate('Date') ?></td>
+                        <td><?php echo date_format(new DateTime($this->sale['saleDate']), 'Y-m-d') ?></td>
+                        <!--<td>{{ sale.s_sale_date.format('Y-m-d') }}</td>
+                        <td>{{ sale.s_sale_date.format('l jS') }} of {{ sale.s_sale_date.format('F Y') }}</td>-->
+                    </tr>
+                    <tr>
+                        <td class="meta-head"><?php echo $this->translate('Time') ?></td>
+                        <td><?php echo date_format(new DateTime($this->sale['saleDate']), 'h:i:s A') ?></td>
+                        <!--<td>{{ sale.s_sale_date.format('h:i:s A') }}</td>-->
+                    </tr>
+                    <tr>
+                        <td class="meta-head"><?php echo $this->translate('Cashier Name') ?></td>
+                        <td><?php echo $this->user ?></td>
+                    </tr>
+                    <tr>
+                        <td class="meta-head"><?php echo $this->translate('Total Due') ?></td>
+                        <td><div class="due">1000</div></td>
+                    </tr>
+                </table>
+                <div id="customer-title">
+                    <?php echo $this->translate('Customer Name') ?>: <?php echo $this->customer['customerName'] ?>
+                </div>
+            </div>
+            <table id="items">
+                <tr>
+                    <th>#</th>
+                    <th><?php echo $this->translate('Category') ?></th>
+                    <th><?php echo $this->translate('Price L.E.') ?></th>
+                </tr>
+                <?php $total=0; ?>
+                <?php foreach ( $this->categories as $category ) { 
+                    $total += $category['categoryQuantity'] * $category['categorySellPrice'];
+                ?>
+                    <tr class="item-row">
+                        <td class="item-name"><?php echo $category['categoryId'] ?></td>
+                        <td class="description"><?php echo $category['categoryName'] ?></td>
+                        <td><?php echo $category['categoryQuantity'] ?> &times; <?php echo $category['categorySellPrice'] ?></td>
+                    </tr>
+                <?php } ?>
+                
+                <?php if ($this->sale['saleDiscount']) { ?>
+                <tr class="last-row">
+                    <td class="blank"></td>
+                    <td class="total-value bold"><b><?php echo $this->translate('Subtotal') ?></b></td>
+                    <td class="total-value bold"><div id="subtotal"><?php echo $total ?></div></td>
+                </tr>
+                <tr>
+                    <td class="blank"></td>
+                    <td class="total-value bold"><?php echo $this->translate('Sale Discount') ?></td>
+                    <td class="total-value bold"><div id="discount"><?php echo $this->sale['saleDiscount'] ?></div></td>
+                </tr>
+                <?php } ?>
+                <tr>
+                    <td class="last-row"></td>
+                    <td class="total-value bold"><?php echo $this->translate('Total') ?></td>
+                    <td class="total-value bold"><div id="total"><?php echo $total - $this->sale['saleDiscount'] ?></div></td>
+                </tr>
+                
+            </table>
+            <div id="terms">
+              <h5><?php echo $this->translate('Terms') ?></h5>
+              <div>- - - - - - - - -</div>
+            </div>
+            <div class="print-control">
+                <a href="javascript:window.print()" class="btn btn-lg btn-default btn-print"><?php echo $this->translate('Print') ?></a>
+                <a href="javascript:window.close()" class="btn btn-lg btn-default btn-print"><?php echo $this->translate('Close') ?></a>
+            </div>
+        </div>
+    </body>
+</html>

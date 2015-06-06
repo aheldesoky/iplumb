@@ -117,5 +117,19 @@ class CategoryController extends Zend_Controller_Action
         }
         
     }
+    
+    public function getAction()
+    {
+        $query = $this->getRequest()->getParam('query');
+        $categoryModel = new Application_Model_Category();
+        
+        $result = $categoryModel->getCategorysWithDataByQuery($query);
+        //print_r($result);die;
+        $this->getHelper('json')->sendJson(array(
+            'query' => $query,
+            'suggestions' => $result
+        ));
+    }
+
 
 }

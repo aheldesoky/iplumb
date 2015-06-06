@@ -14,82 +14,23 @@ $(function() {
     global.baseUrl = $('#baseUrl').val();
     global.categories = [];
     
-    $("#billDate").datetimepicker({
+    $("#saleDate").datetimepicker({
         pickTime: false,
         language: 'ar'
     });
 
     $("#addcategory").on("click", function () {
-        var row =   '<tr class="category-row">\n\
-                        <td class="row-id"></td>\n\
-                        <td>\n\
-                                <input type="text" name="category" id="category" class="category-name">\n\
-                                <span class="fa fa-pencil fa-fw edit-category hidden"></span>\n\
-                        </td>\n\
-                        <td><input type="text" name="quantity" id="quantity" class="category-value"></td>\n\
-                        <td><input type="text" name="sellPrice" id="sellPrice" class="category-value"></td>\n\
-                        <td><span class="fa fa-remove fa-fw remove-category"></span></td>\n\
-                    </tr>';
+        var row =   $('.new-row tbody').html();
         $('.last-row').before(row);
         $.each($('td.row-id'), function(index){
             $(this).html(index+1);
         });
     });
     
-    $("#addnewcustomer").on("click", function(){
-        $('#addNewCustomerModal').modal();
-    })
-    
-    $('#addNewCustomerModal').on('hidden.bs.modal', function () {
-        $('#success-msg').addClass('hidden');
-        $('#customerName').val('');
-        $('#customerPhone').val('');
-        $('#customerNotes').val('');
-        $('#customerForm .errors').remove();
-    }); 
-    
-    $("#addNewCategoryModal #categoryForm").on("submit", function (e) {
-        e.preventDefault();
-        var categoryName = $('#categoryName').val();
-        $('#success-msg').addClass('hidden');
-        $('#categoryForm .errors').remove();
-        $('#submit').button('loading');
-        $.ajax({
-            async: false,
-            dataType: 'json',
-            url: global.baseUrl + '/category/ajax',
-            type: "post",
-            data: { categoryName: categoryName },
-            success: function(json){
-                if(json.errors){
-                    $('#success-msg').addClass('hidden');
-                    $.each(json.errors, function(field, msg){
-                        $('#'+field).after('<ul class="errors"><li>'+msg.isEmpty+'</li></ul>');
-                    });
-                } else {
-                    $('#success-msg').html(json.success).removeClass('hidden');
-                    $('#categoryName').val('');
-                }
-            }
-        }).always(function () {
-            $('#submit').button('reset');
-        });
-    });
-    
-    $('#categoryName').autocomplete({
-        serviceUrl: global.baseUrl + '/category/query',
-        minChars:1,
-        delimiter: /(,|;)\s*/, // regex or character
-        maxHeight:400,
-        zIndex: 9999,
-        deferRequestBy: 0, //miliseconds
-        triggerSelectOnValidInput: false,
-        noCache: true, //default is false, set to true to disable caching
-    });
-    
     $('.table-category').on('click', 'input[name="category"]', function(){
-        $(this).autocomplete({
-            serviceUrl: global.baseUrl + '/category/query',
+        
+        $('.table-category input[name="category"]').autocomplete({
+            serviceUrl: global.baseUrl + '/category/get',
             minChars:1,
             delimiter: /(,|;)\s*/, // regex or character
             maxHeight:400,
@@ -97,56 +38,77 @@ $(function() {
             zIndex: 9999,
             deferRequestBy: 0, //miliseconds
             triggerSelectOnValidInput: false,
-            params: { import:false }, //aditional parameters
+            //params: { sale:false }, //aditional parameters
             noCache: true, //default is false, set to true to disable caching
             onSelect: function(category){
                 var decoded = $("<div/>").html(category.value).text();
                 $(this).val(decoded);
                 $(this).attr('data-id',category.data)
-                       .prop('readonly',true)
+                       .prop('disabled',true)
                        .addClass('text-center input-tagged')
                        .next().removeClass('hidden');
+                var tds = $(this).closest('tr').children('td');
+                
+                $(tds).eq(2).find('span.category-quantity').html(category.categoryQuantity);
+                if(category.categoryQuantity > 0)
+                    $(tds).eq(2).find('input').attr('data-quantity' , category.categoryQuantity).val(1);
+                else 
+                    $(tds).eq(2).find('input').attr('data-quantity' , category.categoryQuantity).val(0);
+                                      
+                $(tds).eq(3).find('input').attr('data-price' , category.categorySellPrice)
+                                          .val(category.categorySellPrice);
+                // Calculate Total
+                var total = 0, quantity=0;
+                $('.table-category tr.category-row').each(function(index , category){
+                    quantity += parseInt($(category).find('input[name="quantity"]').val());
+                    total += parseInt($(category).find('input[name="quantity"]').val()) * parseInt($(category).find('input[name="sellPrice"]').val());
+                });
+
+                $('.total-quantity').html(quantity);
+                $('.total-due').html(total);
             }
-        })
+        });
         
     }).on('click' , '.remove-category', function(){
-        if($('.category-row').length > 1)
+        if($('.table-category .category-row').length > 1)
             $(this).closest('.category-row').remove();
         $.each($('td.row-id'), function(index){
             $(this).html(index+1);
         });
     }).on('click' , '.edit-category' , function(){
-        $(this).prev().prop('readonly',false)
+        $(this).prev().prop('disabled',false)
                       .removeClass('text-center input-tagged')
+                      .focus()
                       .next().addClass('hidden');
+              
+    }).on('change' , '.category-value' , function(){
+        // Calculate Total
+        var total = 0, quantity=0;
+        $('.table-category tr.category-row').each(function(index , category){
+            quantity += parseInt($(category).find('input[name="quantity"]').val());
+            total += parseInt($(category).find('input[name="quantity"]').val()) * parseInt($(category).find('input[name="sellPrice"]').val());
+        });
+
+        $('.total-quantity').html(quantity);
+        $('.total-due').html(total);
     });
     
-    $('#importForm').submit(function(e){
+    $('#saleForm').submit(function(e){
         e.preventDefault();
         var valid = true;
         
         $('ul.errors').remove();
-        $('.category-row').each(function(index, row){
+        $('.table-category .category-row').each(function(index, row){
             var category = {};
             category['categoryId'] = $(row).find('input[name="category"]').attr('data-id');
             category['categoryQuantity'] = $(row).find('input[name="quantity"]').val();
-            category['categoryBuyPrice'] = $(row).find('input[name="buyPrice"]:enabled').val();
             category['categorySellPrice'] = $(row).find('input[name="sellPrice"]').val();
             
-            if($('#billPercentage').prop('checked')){
-                if(    !isInteger(category['categoryId'])
-                    || !isInteger(category['categoryQuantity'])
-                    || !isFloat(category['categorySellPrice'])
-                    ) { valid = false; }
-                category['categoryBuyPrice'] = 0;
+            if(    !isInteger(category['categoryId'])
+                || !isInteger(category['categoryQuantity'])
+                || !isFloat(category['categorySellPrice'])
+                ) { valid = false; }
                 
-            } else {
-                if(    !isInteger(category['categoryId'])
-                    || !isInteger(category['categoryQuantity'])
-                    || !isFloat(category['categoryBuyPrice'])
-                    || !isFloat(category['categorySellPrice'])
-                    ) { valid = false; }
-            }
             console.log(category);
             console.log(valid);
             if(!valid) return valid;
@@ -154,23 +116,26 @@ $(function() {
         });
         
         if(valid){
-            $('#importCategories').val(JSON.stringify(global.categories));
-            var importCategories = $('#importCategories').val(),
-                importDiscount = ($('#billPercentage').prop('checked')) ? $('#importDiscount').val() : 0,
-                importSupplier = $('#importSupplier').val(),
-                importOrder = $('#importOrder').val(),
-                importDate = $('#importDate').val();
+            $('#saleCategories').val(JSON.stringify(global.categories));
+            var saleCategories = $('#saleCategories').val(),
+                saleDiscount = $('#saleDiscount').val(),
+                saleDate = $('#saleDate').val(),
+                saleCustomer = {};
+        
+                saleCustomer['customerName']  = $('#customerName').val();
+                saleCustomer['customerPhone'] = $('#customerPhone').val();
+                saleCustomer['customerNotes'] = $('#customerNotes').val();
+                
                 
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: global.baseUrl + '/import/add',
+                url: global.baseUrl + '/sale/add',
                 async: false,
-                data: { importCategories: importCategories,
-                        importDiscount: importDiscount, 
-                        importSupplier: importSupplier, 
-                        importOrder: importOrder, 
-                        importDate: importDate },
+                data: { saleCategories: saleCategories,
+                        saleDiscount: saleDiscount, 
+                        saleDate: saleDate,
+                        saleCustomer: JSON.stringify(saleCustomer) },
                 success: function(json) {
                     if(json.errors){
                         $.each(json.errors, function(field, msg){
@@ -179,29 +144,14 @@ $(function() {
                         
                     } else {
                         $(window).unbind('beforeunload');
-                        window.location.replace(json.redirectUrl);
+                        window.open(json.redirectUrl, '_blank');
+                        window.location.reload(true);
                     }
                 }
             });
             
         } else {
             $('.table-category').after('<ul class="errors"><li>يجب ملئ كل الحقول </li></ul>');
-        }
-    });
-    
-    $('#importDiscount-label, #importDiscount-element').hide(); 
-    $('#importDiscount').prop('disabled', true); 
-    $('#billPercentage').click(function () {
-        if(this.checked){ 
-            $('.col-buy-price').hide(); 
-            $('#importDiscount-label, #importDiscount-element').show(); 
-            $('input[name="buyPrice"]').prop('disabled', true); 
-            $('#importDiscount').prop('disabled', false); 
-        }else{ 
-            $('.col-buy-price').show(); 
-            $('#importDiscount-label, #importDiscount-element').hide(); 
-            $('input[name="buyPrice"]').prop('disabled', false); 
-            $('#importDiscount').prop('disabled', true); 
         }
     });
     

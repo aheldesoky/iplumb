@@ -30,6 +30,12 @@
                             $controller = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
                             $action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
                             ?>
+                            <li class="<?php echo ($controller=='sale')?'active':''?>">
+                                <a href="<?php echo $this->baseUrl().'/sale' ?>">
+                                    <i class="fa fa-cubes fa-fw"></i> <?php echo $this->translate('Selling Page') ?>
+                                </a>
+                            </li>
+                            
                             <li class="<?php echo ($controller=='inventory')?'active':''?>">
                                 <a href="#">
                                     <i class="fa fa-cubes fa-fw"></i> <?php echo $this->translate('Inventory') ?>

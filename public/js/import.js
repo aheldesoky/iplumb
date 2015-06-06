@@ -100,7 +100,7 @@ $(function() {
                 var decoded = $("<div/>").html(category.value).text();
                 $(this).val(decoded);
                 $(this).attr('data-id',category.data)
-                       .prop('readonly',true)
+                       .prop('disabled',true)
                        .addClass('text-center input-tagged')
                        .next().removeClass('hidden');
                 $(this).parent().next().find('input').focus();
@@ -114,7 +114,7 @@ $(function() {
             $(this).html(index+1);
         });
     }).on('click' , '.edit-category' , function(){
-        $(this).prev().prop('readonly',false)
+        $(this).prev().prop('disabled',false)
                       .removeClass('text-center input-tagged')
                       .focus()
                       .next().addClass('hidden');

@@ -405,3 +405,45 @@ msgstr "تغيير الصنف"
 
 msgid "Remove category"
 msgstr "حذف الصنف"
+
+msgid "from"
+msgstr "من"
+
+msgid "Sale Discount"
+msgstr "قيمة الخصم على الفاتورة"
+
+msgid "Customer Name"
+msgstr "أسم العميل"
+
+msgid "Customer Phone"
+msgstr "رقم هاتف العميل"
+
+msgid "Customer Notes"
+msgstr "ملاحظات على العميل"
+
+msgid "Checkout Bill"
+msgstr "دفع الفاتورة"
+
+msgid "INVOICE"
+msgstr "فاتورة"
+
+msgid "Invoice Number"
+msgstr "رقم الفاتورة"
+
+msgid "Price L.E."
+msgstr "السعر"
+
+msgid "Subtotal"
+msgstr "الكلي قبل الخصم"
+
+msgid "Total Due"
+msgstr "قيمة الفاتورة"
+
+msgid "Time"
+msgstr "الساعة"
+
+msgid "Cashier Name"
+msgstr "الكاشير"
+
+msgid "Print"
+msgstr "طباعة"
