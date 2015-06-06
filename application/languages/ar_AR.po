@@ -462,3 +462,6 @@ msgstr "عرض الفاتورة"
 
 msgid "Refund"
 msgstr "إسترجاع"
+
+msgid "No sales yet"
+msgstr "لا توجد مبيعات حتي الآن"
