@@ -13,7 +13,7 @@
                 <a href="javascript:window.print()" class="btn btn-lg btn-default btn-print"><?php echo $this->translate('Print') ?></a>
                 <a href="javascript:window.close()" class="btn btn-lg btn-default btn-print"><?php echo $this->translate('Close') ?></a>
             </div>
-            <div id="header"><?php echo $this->translate('INVOICE') ?></div>
+            <div id="header"><?php echo $this->translate('IMPORT INVOICE') ?></div>
             <div id="identity">
                 <div id="logo">
                     <img id="image" src="<?php echo $this->baseUrl('/images/dream-logo.gif') ?>" alt="logo" />
@@ -27,85 +27,75 @@
             </div>
             
             <div style="clear:both"></div>
-            
             <div id="invoice">
                 <table id="meta" class="table table-bordered">
                     <tr>
                         <td class="meta-head"><?php echo $this->translate('Invoice Number') ?></td>
-                        <td><?php echo $this->sale['saleId'] ?></td>
+                        <td><?php echo $this->import['importId'] ?></td>
                     </tr>
                     <tr>
                         <td class="meta-head"><?php echo $this->translate('Date') ?></td>
-                        <td><?php echo date_format(new DateTime($this->sale['saleDate']), 'Y-m-d') ?></td>
-                    </tr>
-                    <tr>
-                        <td class="meta-head"><?php echo $this->translate('Time') ?></td>
-                        <td><?php echo date_format(new DateTime($this->sale['saleDate']), 'h:i:s A') ?></td>
-                    </tr>
-                    <tr>
-                        <td class="meta-head"><?php echo $this->translate('Cashier Name') ?></td>
-                        <td><?php echo $this->user ?></td>
+                        <td><?php echo date_format(new DateTime($this->import['importDate']), 'Y-m-d') ?></td>
                     </tr>
                     <tr>
                         <td class="meta-head"><?php echo $this->translate('Total Due') ?></td>
-                        <td><div class="due"><?php echo $this->totalDue - $this->sale['saleDiscount'] ?></div></td>
+                        <td><div class="due"><?php echo $this->totalBuyPrice - $this->import['importDiscount'] ?></div></td>
                     </tr>
                 </table>
             </div>
-            
             <div id="customer">
                 <table id="meta" class="table table-bordered">
                     <tr>
-                        <td class="meta-head"><?php echo $this->translate('Customer Name') ?></td>
-                        <td><?php echo $this->customer['customerName'] ?></td>
-                    </tr>
-                    <!--
-                    <tr>
-                        <td class="meta-head"><?php echo $this->translate('Customer Phone') ?></td>
-                        <td><?php echo $this->import['customerPhone'] ?></td>
+                        <td class="meta-head"><?php echo $this->translate('Supplier Name') ?></td>
+                        <td><?php echo $this->import['supplierName'] ?></td>
                     </tr>
                     <tr>
-                        <td class="meta-head"><?php echo $this->translate('Customer Notes') ?></td>
-                        <td><div class="due"><?php echo $this->import['customerNotes'] ?></div></td>
+                        <td class="meta-head"><?php echo $this->translate('Phone') ?></td>
+                        <td><?php echo $this->import['supplierPhone'] ?></td>
                     </tr>
-                    -->
+                    <tr>
+                        <td class="meta-head"><?php echo $this->translate('Address') ?></td>
+                        <td><div class="due"><?php echo $this->import['supplierAddress'] ?></div></td>
+                    </tr>
                 </table>
             </div>
-            
             <table id="items" class="table table-bordered">
                 <tr>
                     <th>#</th>
                     <th><?php echo $this->translate('Category') ?></th>
-                    <th><?php echo $this->translate('Price L.E.') ?></th>
+                    <th><?php echo $this->translate('Quantity') ?></th>
+                    <th><?php echo $this->translate('Buy Price') ?></th>
+                    <th><?php echo $this->translate('Sell Price') ?></th>
                 </tr>
                 <?php foreach ( $this->categories as $category ) { ?>
                     <tr class="item-row">
-                        <td class="item-name"><?php echo $category['categoryId'] ?></td>
+                        <td class=""><?php echo $category['categoryId'] ?></td>
                         <td class="description"><?php echo $category['categoryName'] ?></td>
-                        <td><?php echo $category['categoryQuantity'] ?> &times; <?php echo $category['categorySellPrice'] ?></td>
+                        <td class=""><?php echo $category['categoryQuantity'] ?></td>
+                        <td class=""><?php echo $category['categoryBuyPrice'] ?></td>
+                        <td class=""><?php echo $category['categorySellPrice'] ?></td>
                     </tr>
                 <?php } ?>
                 
-                <?php if ($this->sale['saleDiscount']) { ?>
+                <?php if ($this->import['importDiscount']) { ?>
                 <tr class="last-row">
-                    <td class="total-value bold" colspan="2"><b><?php echo $this->translate('Subtotal') ?></b></td>
-                    <td class="total-value bold"><div id="subtotal"><?php echo $this->totalDue ?></div></td>
+                    <td class="blank"></td>
+                    <td class="total-value bold"><b><?php echo $this->translate('Subtotal') ?></b></td>
+                    <td class="total-value bold"><div id="subtotal"><?php echo $this->totalBuyPrice ?></div></td>
                 </tr>
                 <tr>
-                    <td class="total-value bold" colspan="2"><?php echo $this->translate('Sale Discount') ?></td>
-                    <td class="total-value bold"><div id="discount"><?php echo $this->sale['saleDiscount'] ?></div></td>
+                    <td class="blank"></td>
+                    <td class="total-value bold"><?php echo $this->translate('Import Discount') ?></td>
+                    <td class="total-value bold"><div id="discount"><?php echo $this->import['importDiscount'] ?></div></td>
                 </tr>
                 <?php } ?>
                 <tr>
-                    <td class="total-value bold" colspan="2"><?php echo $this->translate('Total') ?></td>
-                    <td class="total-value bold"><div id="total"><?php echo $this->totalDue - $this->sale['saleDiscount'] ?></div></td>
+                    <td class="total-value bold" colspan="3"><?php echo $this->translate('Total') ?></td>
+                    <td class="total-value bold"><div id="total"><?php echo $this->totalBuyPrice - $this->import['importDiscount'] ?></div></td>
+                    <td class="total-value bold"><div id="total"><?php echo $this->totalSellPrice ?></div></td>
                 </tr>
                 
             </table>
-            <div id="terms">
-              <h5><?php echo $this->translate('Terms') ?></h5>
-              <div>- - - - - - - - -</div>
-            </div>
             <div class="print-control">
                 <a href="javascript:window.print()" class="btn btn-lg btn-default btn-print"><?php echo $this->translate('Print') ?></a>
                 <a href="javascript:window.close()" class="btn btn-lg btn-default btn-print"><?php echo $this->translate('Close') ?></a>

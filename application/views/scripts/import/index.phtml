@@ -28,6 +28,7 @@ $this->headScript()->appendFile($this->baseUrl('/js/view.js'));
                         <td><?php echo ($import['importDiscount'])? $import['totalSellPrice'] : $import['totalBuyPrice'] ?></td>
                         <td>
                             <a href="#" class="btn btn-info btn-import-view" data-id="<?php echo $import['importId']?>"><?php echo $this->translate('View') ?></a>
+                            <a href="<?php echo $this->baseUrl('/import/bill/id/'.$import['importId'])?>" class="btn btn-default" target="_blank"><?php echo $this->translate('Print') ?></a>
                             <a href="<?php echo $this->baseUrl('/import/edit/id/'.$import['importId'])?>" class="btn btn-warning"><?php echo $this->translate('Edit') ?></a>
                             <a class="btn btn-danger btn-delete" data-url="<?php echo $this->baseUrl('/import/delete/id/'.$import['importId'])?>"><?php echo $this->translate('Delete') ?></a>
                         </td>

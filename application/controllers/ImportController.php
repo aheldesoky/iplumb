@@ -129,5 +129,30 @@ class ImportController extends Zend_Controller_Action
         $this->_helper->layout->disableLayout();
     }
 
+    public function billAction()
+    {
+        $importId = $this->getRequest()->getParam('id');
+        $importModel = new Application_Model_Import();
+        
+        $this->view->import = $importModel->getImportById($importId);
+        
+        $importCategoryModel = new Application_Model_ImportCategory();
+        $categories = $importCategoryModel->getImportCategories($importId);
+        $this->view->categories = $categories;
+        
+        $totalBuyPrice = 0;
+        $totalSellPrice = 0;
+        foreach ($categories as $category){
+            $totalBuyPrice += $category['categoryQuantity'] * $category['categoryBuyPrice'];
+            $totalSellPrice += $category['categoryQuantity'] * $category['categorySellPrice'];
+        }
+        $this->view->totalBuyPrice = $totalBuyPrice;
+        $this->view->totalSellPrice = $totalSellPrice;
+        
+        $this->_helper->layout->disableLayout();
+    }
+
 
 }
+
+

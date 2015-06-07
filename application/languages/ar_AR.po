@@ -430,6 +430,9 @@ msgstr "دفع الفاتورة"
 msgid "INVOICE"
 msgstr "فاتورة"
 
+msgid "IMPORT INVOICE"
+msgstr "فاتورة وارد"
+
 msgid "Invoice Number"
 msgstr "رقم الفاتورة"
 
@@ -465,3 +468,9 @@ msgstr "إسترجاع"
 
 msgid "No sales yet"
 msgstr "لا توجد مبيعات حتي الآن"
+
+msgid "Terms"
+msgstr "الشروط والأحكام"
+
+msgid "Discount"
+msgstr "نسبة الخصم"

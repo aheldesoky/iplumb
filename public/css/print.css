@@ -1,4 +1,4 @@
 .btn-print { display: none; }
 .print-control{ padding: 0px; }
-.page-border{ border: none ; padding: 0px; width: 800px; }
-table{ width: 100%; }
+.page-border{ border: none ; padding: 0px; width: 650px; }
+table{ width: 100%; margin-top: 30px; margin-bottom: 30px; }
