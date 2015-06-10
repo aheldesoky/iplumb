@@ -443,7 +443,7 @@ msgid "Subtotal"
 msgstr "الكلي قبل الخصم"
 
 msgid "Total Due"
-msgstr "قيمة الفاتورة"
+msgstr "القيمة المستحقة"
 
 msgid "Time"
 msgstr "الساعة"

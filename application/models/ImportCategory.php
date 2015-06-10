@@ -10,7 +10,7 @@ class Application_Model_ImportCategory extends Zend_Db_Table_Abstract
         $select = $this->select()->setIntegrityCheck(false);
         $select->from(array('ic'=>'importCategory'));
         $select->joinLeft(array('c'=>'category'), 'c.categoryId=ic.categoryId');
-        $select->joinLeft(array('s'=>'size'), 's.sizeId=c.categorySize');
+        //$select->joinLeft(array('s'=>'size'), 's.sizeId=c.categorySize');
         $select->joinLeft(array('i'=>'import'), 'i.importId=ic.importId');
         $select->joinLeft(array('sp'=>'supplier'), 'sp.supplierId=i.importSupplier');
         $select->where("i.importId=$importId");
@@ -68,7 +68,7 @@ class Application_Model_ImportCategory extends Zend_Db_Table_Abstract
         return $this->update($import, "importId=$importId");
     }
     
-    public function deleteImport($importId)
+    public function deleteImportCategories($importId)
     {
         return $this->delete("importId=$importId");
     }

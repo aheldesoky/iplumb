@@ -31,7 +31,9 @@
                 <tr class="success">
                     <th class="text-center"><?php echo $this->translate('Category Name') ?></th>
                     <th class="text-center"><?php echo $this->translate('Quantity') ?></th>
+                    <?php if (!$this->import['importDiscount']) { ?>
                     <th class="text-center"><?php echo $this->translate('Buy Price') ?></th>
+                    <?php }?>
                     <th class="text-center"><?php echo $this->translate('Sell Price') ?></th>
                 </tr>
             </thead>
@@ -47,18 +49,36 @@
                         $totalSellPrice += $category['categorySellPrice'] * $category['categoryQuantity'];
                     ?>
                     <tr>
-                        <td><?php echo $category['categoryName'] . ' ' . $category['sizeValue'] ?></td>
+                        <td><?php echo $category['categoryName'] ?></td>
                         <td><?php echo $category['categoryQuantity'] ?></td>
+                        <?php if (!$this->import['importDiscount']) { ?>
                         <td><?php echo $category['categoryBuyPrice'] ?></td>
+                        <?php }?>
                         <td><?php echo $category['categorySellPrice'] ?></td>
                     </tr>
                     <?php }?>
+                    
+                    <?php if ($this->import['importDiscount']) { ?>
+                    <tr>
+                        <th class="warning text-center" colspan="2"><?php echo $this->translate('Subtotal') ?></th>
+                        <th class="warning text-center"><?php echo $totalSellPrice ?></th>
+                    </tr>
+                    <tr>
+                        <th class="warning text-center" colspan="2"><?php echo $this->translate('Discount') . ' (' . $this->import['importDiscount'] . '%)' ?></th>
+                        <th class="warning text-center"><?php echo ($totalSellPrice*$this->import['importDiscount'])/100 ?></th>
+                    </tr>
+                    <tr>
+                        <th class="warning text-center" colspan="2"><?php echo $this->translate('Total Due') ?></th>
+                        <th class="warning text-center"><?php echo $totalSellPrice - ($totalSellPrice*$this->import['importDiscount'])/100; ?></th>
+                    </tr>
+                    <?php } else { ?>
                     <tr>
                         <th class="warning text-center"><?php echo $this->translate('Total') ?></th>
                         <th class="warning text-center"><?php echo $totalQuantity ?></th>
                         <th class="warning text-center"><?php echo $totalBuyPrice ?></th>
                         <th class="warning text-center"><?php echo $totalSellPrice ?></th>
                     </tr>
+                    <?php } ?>
                 <?php } else {?>
                     <tr><td colspan="4" class="text-center"><?php echo $this->translate('No imports yet') ?></td></tr>
                 <?php }?>

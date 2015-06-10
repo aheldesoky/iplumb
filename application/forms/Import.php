@@ -3,11 +3,32 @@
 class Application_Form_Import extends Zend_Form
 {
 
+    protected $_importId;
+    
+    public function setImportId($importId = null)
+    {
+        $this->_importId = $importId;
+        return $this;
+    }
+
     public function init()
     {
         $this->setMethod('post');
         $this->setAttrib('id', 'importForm');
-        
+        /*
+        if($this->_importId){
+            $importCategoryModel = new Application_Model_ImportCategory();
+            $categories = $importCategoryModel->getImportCategories($this->_importId);
+            foreach ($categories as $category){
+                $currentCategory['categoryId'] = $category['categoryId'];
+                $currentCategory['categoryQuantity'] = $category['categoryQuantity'];
+                $currentCategory['categoryBuyPrice'] = $category['categoryBuyPrice'];
+                $currentCategory['categorySellPrice'] = $category['categorySellPrice'];
+                $importCategories[] = $currentCategory;
+            }
+            $importCategoriesJSON = json_encode($importCategories);
+        }
+        */
         $this->addElement('hidden','importCategories', array(
             'required' => true,
         ));

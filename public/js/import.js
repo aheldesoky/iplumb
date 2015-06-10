@@ -158,12 +158,13 @@ $(function() {
                 importDiscount = ($('#billPercentage').prop('checked')) ? $('#importDiscount').val() : 0,
                 importSupplier = $('#importSupplier').val(),
                 importOrder = $('#importOrder').val(),
-                importDate = $('#importDate').val();
+                importDate = $('#importDate').val(),
+                formAction = global.baseUrl + $(this).attr('action');
                 
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: global.baseUrl + '/import/add',
+                url: formAction,
                 async: false,
                 data: { importCategories: importCategories,
                         importDiscount: importDiscount, 

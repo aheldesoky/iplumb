@@ -30,6 +30,7 @@ class ImportController extends Zend_Controller_Action
     public function addAction()
     {
         $importForm = new Application_Form_Import();
+        $importForm->setAction('/import/add');
         
         if($this->getRequest()->isPost()){
             $data = $this->getRequest()->getPost();
@@ -67,37 +68,51 @@ class ImportController extends Zend_Controller_Action
     public function editAction()
     {
         $importId = $this->getRequest()->getParam('id');
+        
         $importModel = new Application_Model_Import();
+        $importCategoryModel = new Application_Model_ImportCategory();
+        
         $import = $importModel->fetchRow("importId=$importId")->toArray();
         
         $importForm = new Application_Form_Import();
+        $importForm->setAction("/import/edit/id/$importId");
         
         $translate = Zend_Registry::get('Zend_Translate');
         $importForm->getElement('submit')
-                     ->setLabel($translate->translate('Edit Import'))
-                     ->setAttrib('class', 'btn btn-warning');
-        if($import['importDiscount'] == 0)
-            $importForm->removeElement('importDiscount');
+                   ->setLabel($translate->translate('Edit Import'))
+                   ->setAttrib('class', 'btn btn-lg btn-warning');
+        
+        //if($import['importDiscount'] == 0)
+        //    $importForm->removeElement('importDiscount');
         
         if($this->getRequest()->isPost()){
             $data = $this->getRequest()->getPost();
-            echo '<pre>';print_r($data);
+            //print_r($data);die;
             unset($data['submit']);
-            unset($data['importCategories']);
-            $importForm->removeElement('importCategories');
             
             if($importForm->isValid($data)){
-                $importModel = new Application_Model_Import();
+                
+                $categories = json_decode(stripcslashes($data['importCategories']), true);
+                unset($data['importCategories']);
+                //print_r($categories);die;
                 $importModel->editImport($importId, $data);
-                $this->redirect('/import');
+                
+                $importCategoryModel->deleteImportCategories($importId);
+                foreach ($categories as &$category){
+                    $category['importId'] = $importId;
+                    $importCategoryModel->addImportCategories($category);
+                }
+                //print_r($categories);die;
+                
+                $this->getHelper('json')->sendJson( array('redirectUrl' => $this->view->baseUrl('/import') ) );
+                
             } else {
-                $importForm->populate($data);
+                $this->getHelper('json')->sendJson( array('errors' => $importForm->getMessages()) );
             }
-            
-        } else {
-            $importForm->populate($import);
         }
-        
+        $importForm->populate($import);
+        $this->view->categories = $importCategoryModel->getImportCategories($importId);
+        $this->view->import = $import;
         $this->view->form = $importForm;
     }
 
@@ -105,8 +120,10 @@ class ImportController extends Zend_Controller_Action
     {
         $importId = $this->getRequest()->getParam('id');
         $importModel = new Application_Model_Import();
+        $importCategoryModel = new Application_Model_ImportCategory();
         
         $importModel->deleteImport($importId);
+        $importCategoryModel->deleteImportCategories($importId);
         
         $this->redirect('/import');
     }

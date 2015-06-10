@@ -37,10 +37,17 @@
                         <td class="meta-head"><?php echo $this->translate('Date') ?></td>
                         <td><?php echo date_format(new DateTime($this->import['importDate']), 'Y-m-d') ?></td>
                     </tr>
+                    <?php if ($this->import['importDiscount']) { ?>
+                    <tr>
+                        <td class="meta-head"><?php echo $this->translate('Total Due') ?></td>
+                        <td><div class="due"><?php echo $this->totalSellPrice - ($this->totalSellPrice*$this->import['importDiscount'])/100 ?></div></td>
+                    </tr>
+                    <?php } else { ?>
                     <tr>
                         <td class="meta-head"><?php echo $this->translate('Total Due') ?></td>
                         <td><div class="due"><?php echo $this->totalBuyPrice - $this->import['importDiscount'] ?></div></td>
                     </tr>
+                    <?php } ?>
                 </table>
             </div>
             <div id="customer">
@@ -64,37 +71,43 @@
                     <th>#</th>
                     <th><?php echo $this->translate('Category') ?></th>
                     <th><?php echo $this->translate('Quantity') ?></th>
+                    <?php if (!$this->import['importDiscount']) { ?>
                     <th><?php echo $this->translate('Buy Price') ?></th>
+                    <?php }?>
                     <th><?php echo $this->translate('Sell Price') ?></th>
                 </tr>
                 <?php foreach ( $this->categories as $category ) { ?>
-                    <tr class="item-row">
-                        <td class=""><?php echo $category['categoryId'] ?></td>
-                        <td class="description"><?php echo $category['categoryName'] ?></td>
-                        <td class=""><?php echo $category['categoryQuantity'] ?></td>
-                        <td class=""><?php echo $category['categoryBuyPrice'] ?></td>
-                        <td class=""><?php echo $category['categorySellPrice'] ?></td>
-                    </tr>
+                <tr class="item-row">
+                    <td class=""><?php echo $category['categoryId'] ?></td>
+                    <td class="description"><?php echo $category['categoryName'] ?></td>
+                    <td class=""><?php echo $category['categoryQuantity'] ?></td>
+                    <?php if (!$this->import['importDiscount']) { ?>
+                    <td class=""><?php echo $category['categoryBuyPrice'] ?></td>
+                    <?php }?>
+                    <td class=""><?php echo $category['categorySellPrice'] ?></td>
+                </tr>
                 <?php } ?>
                 
                 <?php if ($this->import['importDiscount']) { ?>
                 <tr class="last-row">
-                    <td class="blank"></td>
-                    <td class="total-value bold"><b><?php echo $this->translate('Subtotal') ?></b></td>
-                    <td class="total-value bold"><div id="subtotal"><?php echo $this->totalBuyPrice ?></div></td>
+                    <td class="total-value bold" colspan="3"><b><?php echo $this->translate('Subtotal') ?></b></td>
+                    <td class="total-value bold"><div id="subtotal"><?php echo $this->totalSellPrice ?></div></td>
                 </tr>
                 <tr>
-                    <td class="blank"></td>
-                    <td class="total-value bold"><?php echo $this->translate('Import Discount') ?></td>
-                    <td class="total-value bold"><div id="discount"><?php echo $this->import['importDiscount'] ?></div></td>
+                    <td class="total-value bold" colspan="3"><?php echo $this->translate('Discount') . ' (' . $this->import['importDiscount'] . '%)' ?></td>
+                    <td class="total-value bold"><div id="discount"><?php echo ($this->totalSellPrice*$this->import['importDiscount'])/100 ?></div></td>
                 </tr>
-                <?php } ?>
+                <tr>
+                    <td class="total-value bold" colspan="3"><?php echo $this->translate('Total Due') ?></td>
+                    <td class="total-value bold"><div id="total"><?php echo $this->totalSellPrice - ($this->totalSellPrice*$this->import['importDiscount'])/100 ?></div></td>
+                </tr>
+                <?php } else { ?>
                 <tr>
                     <td class="total-value bold" colspan="3"><?php echo $this->translate('Total') ?></td>
                     <td class="total-value bold"><div id="total"><?php echo $this->totalBuyPrice - $this->import['importDiscount'] ?></div></td>
                     <td class="total-value bold"><div id="total"><?php echo $this->totalSellPrice ?></div></td>
                 </tr>
-                
+                <?php } ?>
             </table>
             <div class="print-control">
                 <a href="javascript:window.print()" class="btn btn-lg btn-default btn-print"><?php echo $this->translate('Print') ?></a>
