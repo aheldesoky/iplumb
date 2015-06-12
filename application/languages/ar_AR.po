@@ -474,3 +474,6 @@ msgstr "الشروط والأحكام"
 
 msgid "Discount"
 msgstr "نسبة الخصم"
+
+msgid "Edit Sale"
+msgstr "تعديل فاتورة البيع"
