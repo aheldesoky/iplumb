@@ -6,12 +6,12 @@
                        ->appendFile($this->baseUrl('/js/bootstrap-datetimepicker.ar.js'))
                        ->appendFile($this->baseUrl('/js/jquery.autocomplete.js'))
                        ->appendFile($this->baseUrl('/js/json2.min.js'))
-                       ->appendFile($this->baseUrl('/js/import.js'));
+                       ->appendFile($this->baseUrl('/js/billing.js'));
 ?>
 
 <div class="panel panel-warning">
     <div class="panel-heading">
-        <h3 class="panel-title"><?php echo $this->translate('Edit Import') ?></h3>
+        <h3 class="panel-title"><?php echo $this->translate('Edit Sale') ?></h3>
     </div>
     <div class="panel-body">
         <table class="table table-bordered text-center table-category">
@@ -20,13 +20,19 @@
                     <th class="text-center">#</th>
                     <th class="text-center"><?php echo $this->translate('Category Name') ?></th>
                     <th class="text-center"><?php echo $this->translate('Quantity') ?></th>
-                    <th class="text-center col-buy-price"><?php echo $this->translate('Buy Price') ?></th>
                     <th class="text-center"><?php echo $this->translate('Sell Price') ?></th>
                     <th class="text-center"></th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($this->categories as $index => $category) { ?>
+                <?php 
+                    $categoryQuantity = 0;
+                    $categoryTotalPrice = 0;
+                ?>
+                <?php foreach ($this->categories as $index => $category) { 
+                        $categoryQuantity += $category['categoryQuantity'];
+                        $categoryTotalPrice += $category['categorySellPrice'] * $category['categoryQuantity'];
+                ?>
                 <tr class="category-row">
                     <td class="row-id"><?php echo $index+1?></td>
                     <td>
@@ -39,7 +45,6 @@
                         <span class="fa fa-pencil fa-fw edit-category" title="<?php echo $this->translate('Change category') ?>"></span>
                     </td>
                     <td><input type="text" name="quantity" id="quantity" class="category-value number text-center" value="<?php echo $category['categoryQuantity']?>"></td>
-                    <td class="col-buy-price"><input type="text" name="buyPrice" id="buyPrice" class="category-value number float text-center" value="<?php echo $category['categoryBuyPrice']?>"></td>
                     <td><input type="text" name="sellPrice" id="sellPrice" class="category-value number float text-center" value="<?php echo $category['categorySellPrice']?>"></td>
                     <td><span class="fa fa-remove fa-fw remove-category" title="<?php echo $this->translate('Remove category') ?>"></span></td>
                 </tr>
@@ -48,47 +53,24 @@
                     <td></td>
                     <td>
                         <button id="addcategory" class="btn btn-success" data-role="button">
-                            <i class="fa fa-plus-circle fa-fw"></i> <?php echo $this->translate('Add Category to Import') ?>
-                        </button>
-                        <button id="addnewcategory" class="btn btn-info" data-role="button">
-                            <i class="fa fa-plus-circle fa-fw"></i> <?php echo $this->translate("Add Category Doesn't Exist") ?>
+                            <i class="fa fa-plus-circle fa-fw"></i> <?php echo $this->translate('Add Category to Bill') ?>
                         </button>
                     </td>
-                    <td></td>
-                    <td class="col-buy-price"></td>
-                    <td></td>
+                    <td class="total-quantity"><?php echo $categoryQuantity; ?></td>
+                    <td class="total-due"><?php echo $categoryTotalPrice; ?></td>
                     <td></td>
                 </tr>
             </tbody>
         </table>
-        <div>
-            <input type="checkbox" name="billPercentage" id="billPercentage" /> 
-            <label for="billPercentage"><?php echo $this->translate('Benefit as Bill Percentage') ?></label>
+        <div class="">
+            <?php echo $this->form; ?>
         </div>
-        <?php echo $this->form ?>
     </div>
-    <div class="panel-footer text-left">
+    <!--
+    <div class="panel-footer text-center">
         <a href="<?php echo $this->baseUrl('/import');?>" class="btn btn-default"><?php echo $this->translate('Back to Import List') ?></a>
     </div>
-</div>
-
-
-<!-- Modal -->
-<div class="modal fade" id="addNewCategoryModal" tabindex="-1" aria-labelledby="addNewCategoryModal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div class="panel-heading">
-                    <h3 class="panel-title"><?php echo $this->translate('Add New Category') ?></h3>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div id="success-msg" class="alert alert-success hidden" role="alert"></div>
-                <?php echo $this->categroyForm ?>
-            </div>
-        </div>
-    </div>
+    -->
 </div>
 
 <table class="hidden new-row">
@@ -96,18 +78,16 @@
         <td class="row-id">1</td>
         <td>
             <input type="text" name="category" id="category" class="category-name">
-            <span class="fa fa-pencil fa-fw edit-category hidden" title="<?php echo $this->translate('Change category') ?>"></span>
+            <span class="fa fa-pencil fa-fw edit-category hidden"></span>
         </td>
-        <td><input type="text" name="quantity" id="quantity" class="category-value number text-center"></td>
-        <td class="col-buy-price"><input type="text" name="buyPrice" id="buyPrice" class="category-value number float text-center"></td>
-        <td><input type="text" name="sellPrice" id="sellPrice" class="category-value number float text-center"></td>
-        <td><span class="fa fa-remove fa-fw remove-category" title="<?php echo $this->translate('Remove category') ?>"></span></td>
+        <td>
+            <input type="text" name="quantity" id="quantity" class="category-value number text-center" data-quantity="">
+            <span><?php echo $this->translate('from') ?> <span class="category-quantity">0</span></span>
+        </td>
+        <td>
+            <input type="text" name="sellPrice" id="sellPrice" class="category-value number float text-center" data-price="">
+            <span class="category-sell-price"></span>
+        </td>
+        <td><span class="fa fa-remove fa-fw remove-category"></span></td>
     </tr>
 </table>
-<script>
-    <?php if ($this->import['importDiscount']) { ?>
-        $(function() {
-            $('#billPercentage').click();
-        });
-    <?php } ?>
-</script>

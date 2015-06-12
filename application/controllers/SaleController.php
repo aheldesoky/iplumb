@@ -31,6 +31,7 @@ class SaleController extends Zend_Controller_Action
     {
         //print_r($this->getRequest()->getPost());die;
         $saleForm = new Application_Form_Sale();
+        $saleForm->setAction("/sale/add");
         
         if($this->getRequest()->isPost()){
             $data = $this->getRequest()->getPost();
@@ -67,6 +68,61 @@ class SaleController extends Zend_Controller_Action
             $this->view->form = $saleForm;
         }
         
+    }
+    
+    public function editAction()
+    {
+        $saleId = $this->getRequest()->getParam('id');
+        
+        $saleModel = new Application_Model_Sale();
+        $saleCategoryModel = new Application_Model_SaleCategory();
+        $customerModel = new Application_Model_Customer();
+        
+        $sale = $saleModel->getSaleById($saleId);
+        
+        $saleForm = new Application_Form_Sale();
+        $saleForm->setAction("/sale/edit/id/$saleId");
+        
+        $translate = Zend_Registry::get('Zend_Translate');
+        $saleForm->getElement('submit')
+                   ->setLabel($translate->translate('Edit Sale'))
+                   ->setAttrib('class', 'btn btn-lg btn-warning');
+        
+        if($this->getRequest()->isPost()){
+            $data = $this->getRequest()->getPost();
+            //print_r($data);die;
+            unset($data['submit']);
+            
+            if($saleForm->isValid($data)){
+                
+                $categories = json_decode(stripcslashes($data['saleCategories']), true);
+                $customer   = json_decode(stripcslashes($data['saleCustomer']), true);
+                unset($data['saleCategories']);
+                unset($data['saleCustomer']);
+                //print_r($categories);die;
+                
+                $customerModel->editCustomer($sale['saleCustomer'], $customer);
+                //$data['saleCustomer'] = $customerId;
+                $saleModel->editSale($saleId, $data);
+                
+                $saleCategoryModel->deleteSaleCategories($saleId);
+                foreach ($categories as &$category){
+                    $category['saleId'] = $saleId;
+                    $saleCategoryModel->addSaleCategory($category);
+                }
+                //print_r($categories);die;
+                
+                $this->getHelper('json')->sendJson( array('redirectUrl' => $this->view->baseUrl("/sale/bill/id/$saleId") ) );
+                
+            } else {
+                $this->getHelper('json')->sendJson( array('errors' => $saleForm->getMessages()) );
+            }
+        } else {
+            $saleForm->populate($sale);
+            $this->view->categories = $saleCategoryModel->getSaleCategories($saleId);
+            $this->view->sale = $sale;
+            $this->view->form = $saleForm;
+        }
     }
 
     public function billAction()

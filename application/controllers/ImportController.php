@@ -109,11 +109,12 @@ class ImportController extends Zend_Controller_Action
             } else {
                 $this->getHelper('json')->sendJson( array('errors' => $importForm->getMessages()) );
             }
+        } else {
+            $importForm->populate($import);
+            $this->view->categories = $importCategoryModel->getImportCategories($importId);
+            $this->view->import = $import;
+            $this->view->form = $importForm;
         }
-        $importForm->populate($import);
-        $this->view->categories = $importCategoryModel->getImportCategories($importId);
-        $this->view->import = $import;
-        $this->view->form = $importForm;
     }
 
     public function deleteAction()

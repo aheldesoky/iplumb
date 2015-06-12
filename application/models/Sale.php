@@ -33,9 +33,19 @@ class Application_Model_Sale extends Zend_Db_Table_Abstract
         return $this->insert($sale);
     }
     
+    public function editSale($saleId, $sale)
+    {
+        return $this->update($sale, "saleId=$saleId");
+    }
+    
     public function getSaleById($saleId)
     {
-        return $this->fetchRow("saleId=$saleId")->toArray();
+        $select = $this->select()->setIntegrityCheck(false);
+        $select->from(array('s'=>'sale'));
+        $select->joinLeft(array('c'=>'customer'), 's.saleCustomer=c.customerId');
+        $select->where("saleId=$saleId");
+        
+        return $this->fetchRow($select)->toArray();
     }
     
     public function deleteSale($saleId)

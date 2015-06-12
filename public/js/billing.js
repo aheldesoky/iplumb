@@ -120,7 +120,8 @@ $(function() {
             var saleCategories = $('#saleCategories').val(),
                 saleDiscount = $('#saleDiscount').val(),
                 saleDate = $('#saleDate').val(),
-                saleCustomer = {};
+                saleCustomer = {},
+                formAction = global.baseUrl + $(this).attr('action');
         
                 saleCustomer['customerName']  = $('#customerName').val();
                 saleCustomer['customerPhone'] = $('#customerPhone').val();
@@ -130,7 +131,7 @@ $(function() {
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: global.baseUrl + '/sale/add',
+                url: formAction,
                 async: false,
                 data: { saleCategories: saleCategories,
                         saleDiscount: saleDiscount, 
